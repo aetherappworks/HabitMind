@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useCreditStore } from '../../store/creditStore';
 import { useI18n } from '../../i18n/useI18n';
 import { shadows } from '../../styles/shadows';
+import { colors } from '../../styles/colors';
 import { Button } from '../../components/Button';
 import { Toast } from '../../components/Toast';
 
@@ -374,7 +375,7 @@ export default function CreditsScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.default,
   },
   content: {
     padding: 16,
@@ -393,11 +394,11 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   planBadge: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.neutral[100],
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
@@ -405,10 +406,10 @@ const styles = StyleSheet.create({
   planBadgeText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#666',
+    color: colors.text.tertiary,
   },
   creditCard: {
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
     borderRadius: 16,
     padding: 24,
     marginBottom: 24,
@@ -417,30 +418,30 @@ const styles = StyleSheet.create({
   },
   creditLabel: {
     fontSize: 14,
-    color: '#c7d2fe',
+    color: colors.primary[100],
     marginBottom: 8,
   },
   creditAmount: {
     fontSize: 48,
     fontWeight: '700',
-    color: '#ffffff',
+    color: colors.text.inverse,
     marginBottom: 4,
   },
   creditUnit: {
     fontSize: 13,
-    color: '#c7d2fe',
+    color: colors.primary[100],
   },
   sectionTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 12,
   },
   statsContainer: {
     marginBottom: 24,
   },
   statBox: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -455,39 +456,39 @@ const styles = StyleSheet.create({
   statLabel: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
   statValue: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#6366f1',
+    color: colors.primary[500],
   },
   progressBar: {
     height: 8,
-    backgroundColor: '#e5e7eb',
+    backgroundColor: colors.border.light,
     borderRadius: 4,
     overflow: 'hidden',
     marginBottom: 8,
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
     borderRadius: 4,
   },
   progressText: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.neutral[400],
   },
   availableText: {
     fontSize: 12,
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
   actionButtons: {
     gap: 12,
     marginBottom: 20,
   },
   reloadOptions: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     borderRadius: 12,
     padding: 16,
     marginBottom: 20,
@@ -496,7 +497,7 @@ const styles = StyleSheet.create({
   reloadOptionsTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 12,
   },
   optionsGrid: {
@@ -509,27 +510,27 @@ const styles = StyleSheet.create({
     minWidth: '48%',
     paddingVertical: 16,
     paddingHorizontal: 12,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: colors.neutral[50],
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#e5e7eb',
+    borderColor: colors.border.light,
     alignItems: 'center',
   },
   optionAmount: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#6366f1',
+    color: colors.primary[500],
     marginBottom: 4,
   },
   optionLabel: {
     fontSize: 12,
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
   earnSection: {
     marginBottom: 24,
   },
   earnCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -551,18 +552,18 @@ const styles = StyleSheet.create({
   earnTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 2,
   },
   earnDesc: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.neutral[400],
   },
   faqSection: {
     marginBottom: 20,
   },
   faqCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -571,30 +572,30 @@ const styles = StyleSheet.create({
   faqQuestion: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   faqAnswer: {
     fontSize: 13,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     lineHeight: 20,
   },
   errorText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#ef4444',
+    color: colors.error[300],
     marginBottom: 8,
     textAlign: 'center',
   },
   errorMessage: {
     fontSize: 13,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     marginBottom: 16,
     textAlign: 'center',
   },
   loadingText: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     marginTop: 12,
   },
 });

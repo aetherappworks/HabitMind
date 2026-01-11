@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { colors } from '../styles/colors';
 import { useLanguageStore } from '../store/languageStore';
 import { LANGUAGE_NAMES, AVAILABLE_LANGUAGES, Language } from '../i18n/i18n';
 import { useI18n } from '../i18n/useI18n';
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 12,
-    color: '#333',
+    color: colors.text.primary,
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -70,20 +71,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
-    backgroundColor: '#f5f5f5',
+    borderColor: colors.border.light,
+    backgroundColor: colors.neutral[100],
     alignItems: 'center',
   },
   buttonActive: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
+    backgroundColor: colors.primary[500],
+    borderColor: colors.primary[500],
   },
   buttonText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#666',
+    color: colors.text.tertiary,
   },
   buttonTextActive: {
-    color: '#fff',
+    color: colors.text.inverse,
   },
 });

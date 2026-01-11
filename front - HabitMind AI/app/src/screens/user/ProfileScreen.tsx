@@ -12,6 +12,7 @@ import { useAuthStore } from '../../store/authStore';
 import { useI18n } from '../../i18n/useI18n';
 import { authService, UserCredits } from '../../services/authService';
 import { shadows } from '../../styles/shadows';
+import { colors } from '../../styles/colors';
 import { Button } from '../../components/Button';
 
 export default function ProfileScreen({ navigation }: any) {
@@ -102,7 +103,7 @@ export default function ProfileScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.default,
   },
   content: {
     padding: 16,
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   userCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.card,
     borderRadius: 16,
     padding: 24,
     marginBottom: 24,
@@ -127,14 +128,14 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
     justifyContent: 'center',
     alignItems: 'center',
   },
   avatarText: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#ffffff',
+    color: colors.text.inverse,
   },
   userInfo: {
     flex: 1,
@@ -142,16 +143,16 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 4,
   },
   userEmail: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
     marginBottom: 8,
   },
   planBadge: {
-    backgroundColor: '#ede9fe',
+    backgroundColor: colors.primary[100],
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 6,
@@ -160,19 +161,19 @@ const styles = StyleSheet.create({
   planText: {
     fontSize: 11,
     fontWeight: '500',
-    color: '#6366f1',
+    color: colors.primary[500],
   },
   sectionTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 12,
   },
   infoSection: {
     marginBottom: 24,
   },
   infoBox: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.card,
     borderRadius: 12,
     padding: 16,
     ...shadows.small,
@@ -183,23 +184,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#f3f4f6',
+    borderBottomColor: colors.border.light,
   },
   infoLabel: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#9ca3af',
+    color: colors.text.tertiary,
   },
   infoValue: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   dangerSection: {
     marginTop: 8,
   },
   errorText: {
     fontSize: 14,
-    color: '#ef4444',
+    color: colors.error[300],
   },
 });

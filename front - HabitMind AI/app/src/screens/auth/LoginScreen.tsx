@@ -8,6 +8,7 @@ import {
   Alert,
   TextInput,
 } from 'react-native';
+import { colors } from '../../styles/colors';
 import { useAuthStore } from '../../store/authStore';
 import { useI18n } from '../../i18n/useI18n';
 import { useNavigation } from '@react-navigation/native';
@@ -122,7 +123,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.default,
   },
   content: {
     flexGrow: 1,
@@ -136,12 +137,12 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#6366f1',
+    color: colors.primary[500],
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
   form: {
     gap: 16,
@@ -152,24 +153,24 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#374151',
+    color: colors.text.secondary,
     marginBottom: 8,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.border.light,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
   },
   inputError: {
-    borderColor: '#ef4444',
-    backgroundColor: '#fef2f2',
+    borderColor: colors.error[300],
+    backgroundColor: colors.error[50],
   },
   errorText: {
     fontSize: 12,
-    color: '#ef4444',
+    color: colors.error[300],
     marginTop: 4,
   },
   footer: {
@@ -180,6 +181,6 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
 });

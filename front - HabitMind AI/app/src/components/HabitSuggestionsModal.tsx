@@ -10,6 +10,7 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
+import { colors } from '../styles/colors';
 import { useAIStore } from '../store/aiStore';
 import { useAuthStore } from '../store/authStore';
 import { useHabitStore } from '../store/habitStore';
@@ -284,7 +285,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     marginTop: 40,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
@@ -300,25 +301,25 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: colors.border.light,
   },
   closeButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#f3f4f6',
+    backgroundColor: colors.neutral[100],
     justifyContent: 'center',
     alignItems: 'center',
   },
   closeButtonText: {
     fontSize: 20,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     fontWeight: '600',
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   centerContent: {
     flex: 1,
@@ -329,11 +330,11 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 12,
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
   emptyText: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     textAlign: 'center',
     lineHeight: 20,
   },
@@ -343,16 +344,16 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 13,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     marginBottom: 16,
     lineHeight: 18,
   },
   suggestionCard: {
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.neutral[50],
     borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.border.light,
     ...shadows.small,
   },
   cardHeader: {
@@ -368,7 +369,7 @@ const styles = StyleSheet.create({
   habitTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   difficultyBadge: {
@@ -382,7 +383,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   confidenceBadge: {
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
@@ -390,32 +391,32 @@ const styles = StyleSheet.create({
   confidenceText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#ffffff',
+    color: colors.text.inverse,
   },
   relatedHabit: {
     fontSize: 12,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     marginBottom: 12,
   },
   relatedHabitValue: {
     fontWeight: '600',
-    color: '#6366f1',
+    color: colors.primary[500],
   },
   reasonSection: {
     marginBottom: 12,
     paddingBottom: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: colors.border.light,
   },
   reasonLabel: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#6b7280',
+    color: colors.text.tertiary,
     marginBottom: 4,
   },
   reasonText: {
     fontSize: 13,
-    color: '#374151',
+    color: colors.text.secondary,
     lineHeight: 18,
   },
   benefitsSection: {
@@ -424,7 +425,7 @@ const styles = StyleSheet.create({
   benefitsLabel: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#6b7280',
+    color: colors.text.tertiary,
     marginBottom: 8,
   },
   benefitItem: {
@@ -433,13 +434,13 @@ const styles = StyleSheet.create({
   },
   benefitDot: {
     fontSize: 14,
-    color: '#6366f1',
+    color: colors.primary[500],
     marginRight: 8,
     fontWeight: '600',
   },
   benefitText: {
     fontSize: 12,
-    color: '#374151',
+    color: colors.text.secondary,
     flex: 1,
     lineHeight: 16,
   },
@@ -447,23 +448,23 @@ const styles = StyleSheet.create({
     marginTop: 12,
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: '#e5e7eb',
-    backgroundColor: '#f9fafb',
+    borderTopColor: colors.border.light,
+    backgroundColor: colors.neutral[50],
     padding: 10,
     borderRadius: 8,
   },
   creditsLabel: {
     fontSize: 12,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     fontWeight: '500',
   },
   creditsValue: {
     fontWeight: '700',
-    color: '#6366f1',
+    color: colors.primary[500],
     fontSize: 14,
   },
   createButton: {
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 12,
@@ -474,10 +475,10 @@ const styles = StyleSheet.create({
   createButtonText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#ffffff',
+    color: colors.text.inverse,
   },
   generateButton: {
-    backgroundColor: '#f59e0b',
+    backgroundColor: colors.warning[300],
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 12,
@@ -489,10 +490,10 @@ const styles = StyleSheet.create({
   generateButtonText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#ffffff',
+    color: colors.text.inverse,
   },
   retryButton: {
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 24,
@@ -501,23 +502,23 @@ const styles = StyleSheet.create({
   retryButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#ffffff',
+    color: colors.text.inverse,
   },
   errorText: {
     fontSize: 14,
-    color: '#ef4444',
+    color: colors.error[300],
     textAlign: 'center',
   },
   footerSection: {
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
+    borderTopColor: colors.border.light,
     flexDirection: 'row',
     gap: 8,
   },
   closeFullButton: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: colors.neutral[100],
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -527,6 +528,6 @@ const styles = StyleSheet.create({
   closeFullButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
   },
 });

@@ -8,6 +8,7 @@ import {
   Alert,
   TextInput,
 } from 'react-native';
+import { colors } from '../../styles/colors';
 import { useAuthStore } from '../../store/authStore';
 import { useI18n } from '../../i18n/useI18n';
 import { useNavigation } from '@react-navigation/native';
@@ -162,7 +163,7 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.default,
   },
   content: {
     flexGrow: 1,
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginTop: 16,
   },
   form: {
@@ -186,26 +187,26 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#374151',
+    color: colors.text.secondary,
     marginBottom: 8,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.border.light,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     fontSize: 14,
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   inputError: {
-    borderColor: '#ef4444',
-    backgroundColor: '#fef2f2',
+    borderColor: colors.error[300],
+    backgroundColor: colors.error[50],
   },
   errorText: {
     fontSize: 12,
-    color: '#ef4444',
+    color: colors.error[300],
     marginTop: 4,
   },
 });

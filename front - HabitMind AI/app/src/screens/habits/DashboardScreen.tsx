@@ -22,6 +22,7 @@ import { useI18n } from '../../i18n/useI18n';
 import { authService, UserCredits } from '../../services/authService';
 import { habitService, CheckIn } from '../../services/habitService';
 import { shadows } from '../../styles/shadows';
+import { colors } from '../../styles/colors';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
@@ -372,7 +373,7 @@ export default function DashboardScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.default,
   },
   header: {
     flexDirection: 'row',
@@ -381,23 +382,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: colors.border.light,
   },
   greeting: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   subGreeting: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
   },
   headerActions: {
     flexDirection: 'row',
     gap: 8,
   },
   suggestionsButton: {
-    backgroundColor: '#fef3c7',
+    backgroundColor: colors.warning[100],
     borderRadius: 20,
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -409,7 +410,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   fabButton: {
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
     borderRadius: 20,
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -418,7 +419,7 @@ const styles = StyleSheet.create({
   fabButtonText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#ffffff',
+    color: colors.text.inverse,
   },
   creditsCard: {
     flexDirection: 'row',
@@ -428,9 +429,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     paddingHorizontal: 14,
     paddingVertical: 10,
-    backgroundColor: '#f3f4f6',
+    backgroundColor: colors.primary[100],
     borderLeftWidth: 4,
-    borderLeftColor: '#6366f1',
+    borderLeftColor: colors.primary[500],
     borderRadius: 8,
     ...shadows.small,
   },
@@ -439,26 +440,26 @@ const styles = StyleSheet.create({
   },
   creditsLabel: {
     fontSize: 11,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
     marginBottom: 2,
     fontWeight: '500',
   },
   creditsAmount: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#6366f1',
+    color: colors.primary[500],
   },
   creditsInfo: {
     alignItems: 'flex-end',
   },
   creditsTotal: {
     fontSize: 11,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
     marginBottom: 1,
   },
   creditsPlan: {
     fontSize: 10,
-    color: '#d1d5db',
+    color: colors.text.tertiary,
     fontWeight: '500',
   },
   listContent: {
@@ -482,12 +483,12 @@ const styles = StyleSheet.create({
   emptyStateTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   emptyStateSubtitle: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.secondary,
     textAlign: 'center',
     marginBottom: 24,
   },

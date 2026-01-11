@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { shadows } from '../styles/shadows';
+import { colors } from '../styles/colors';
 import { Habit } from '../services/habitService';
 
 interface HabitCardProps {
@@ -35,10 +36,10 @@ export const HabitCard: React.FC<HabitCardProps> = ({
   };
 
   const getStatusColor = () => {
-    if (completedToday) return '#10b981'; // Verde para completado
-    if (skippedToday) return '#f59e0b'; // Laranja para pulado
-    if (!habit.active) return '#ef4444';
-    return '#6366f1';
+    if (completedToday) return colors.success[300]; // Verde pastel
+    if (skippedToday) return colors.warning[300]; // Amarelo pastel
+    if (!habit.active) return colors.error[300];
+    return colors.primary[500];
   };
 
   const getStatusIcon = () => {
@@ -49,9 +50,9 @@ export const HabitCard: React.FC<HabitCardProps> = ({
   };
 
   const getBackgroundColor = () => {
-    if (completedToday) return '#f0fdf4'; // Verde claro
-    if (skippedToday) return '#fffbeb'; // Amarelo/laranja claro
-    return '#ffffff';
+    if (completedToday) return colors.success[50]; // Verde pastel claro
+    if (skippedToday) return colors.warning[50]; // Amarelo pastel claro
+    return colors.background.card;
   };
 
   React.useEffect(() => {
@@ -76,7 +77,7 @@ export const HabitCard: React.FC<HabitCardProps> = ({
           <Text style={styles.title}>{habit.title}</Text>
           {onEdit && (
             <TouchableOpacity onPress={onEdit} style={styles.editButton}>
-              <Ionicons name="pencil-outline" size={18} color="#6366f1" />
+              <Ionicons name="pencil-outline" size={18} color={colors.primary[500]} />
             </TouchableOpacity>
           )}
         </View>
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     flex: 1,
   },
   editButton: {
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 12,
-    color: '#6b7280',
+    color: colors.text.secondary,
     marginBottom: 8,
   },
   footer: {
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   },
   frequency: {
     fontSize: 11,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
   },
   status: {
     paddingLeft: 16,

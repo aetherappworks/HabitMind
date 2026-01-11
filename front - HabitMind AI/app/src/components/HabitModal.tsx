@@ -13,6 +13,7 @@ import { useHabitStore } from '../store/habitStore';
 import { Input } from './Input';
 import { Button } from './Button';
 import { Toast } from './Toast';
+import { colors } from '../styles/colors';
 
 interface HabitModalProps {
   visible: boolean;
@@ -44,22 +45,16 @@ export const HabitModal: React.FC<HabitModalProps> = ({
   const isEditing = !!habitId;
   const modalTitle = isEditing ? 'Editar Hábito' : 'Criar Novo Hábito';
 
-  console.log('🎯 [HabitModal] Props recebidas:', { visible, habitId, isEditing, modalTitle });
-
   // Load habit data when modal opens in edit mode
   React.useEffect(() => {
     if (visible && isEditing && habitId) {
-      console.log('📂 [HabitModal] Carregando dados do hábito:', habitId);
       setIsLoadingHabit(true);
       const habit = habits.find((h) => h.id === habitId);
       if (habit) {
-        console.log('✅ [HabitModal] Hábito encontrado:', habit.title);
         setTitle(habit.title);
         setDescription(habit.description || '');
         setFrequency(habit.frequency || 'daily');
         setPreferredTime(habit.preferredTime || '');
-      } else {
-        console.warn('⚠️ [HabitModal] Hábito não encontrado no array de hábitos');
       }
       setIsLoadingHabit(false);
     }
@@ -129,19 +124,15 @@ export const HabitModal: React.FC<HabitModalProps> = ({
   };
 
   const handleDelete = () => {
-    console.log('🗑️ [HabitModal] handleDelete chamado:', { habitId, title });
     setShowDeleteConfirm(true);
   };
 
   const handleConfirmDelete = async () => {
-    console.log('⚠️ [HabitModal] Confirmando deleção do hábito:', habitId);
     setIsDeleting(true);
     
     try {
       if (habitId) {
-        console.log('📡 [HabitModal] Chamando deleteHabit do store');
         await deleteHabit(habitId);
-        console.log('✅ [HabitModal] Deleção concluída');
         
         setToastMessage('✓ Hábito deletado com sucesso!');
         setToastType('success');
@@ -151,17 +142,12 @@ export const HabitModal: React.FC<HabitModalProps> = ({
         setShowDeleteConfirm(false);
         
         setTimeout(() => {
-          console.log('🔄 [HabitModal] Resetando formulário');
           resetForm();
           onClose();
           onSuccess?.();
-          console.log('✅ [HabitModal] Tudo finalizado');
         }, 500);
-      } else {
-        console.error('❌ [HabitModal] habitId inválido');
       }
     } catch (error) {
-      console.error('❌ [HabitModal] Erro:', error);
       setToastMessage(
         error instanceof Error ? error.message : 'Erro ao deletar hábito'
       );
@@ -172,7 +158,6 @@ export const HabitModal: React.FC<HabitModalProps> = ({
   };
 
   const handleCancelDelete = () => {
-    console.log('❌ [HabitModal] Deleção cancelada pelo usuário');
     setShowDeleteConfirm(false);
   };
 
@@ -397,7 +382,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.default,
     marginTop: Platform.OS === 'web' ? 40 : 60,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -410,19 +395,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: colors.border.light,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   closeButton: {
     padding: 8,
   },
   closeButtonText: {
     fontSize: 24,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
     fontWeight: '300',
   },
   content: {
@@ -436,7 +421,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#374151',
+    color: colors.text.secondary,
     marginBottom: 8,
   },
   frequencyTabs: {
@@ -451,12 +436,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: '#e5e7eb',
-    backgroundColor: '#ffffff',
+    borderColor: colors.border.light,
+    backgroundColor: colors.background.secondary,
   },
   frequencyTabActive: {
-    borderColor: '#6366f1',
-    backgroundColor: '#eef2ff',
+    borderColor: colors.primary[500],
+    backgroundColor: colors.primary[50],
   },
   frequencyTabLabel: {
     fontSize: 24,
@@ -465,23 +450,23 @@ const styles = StyleSheet.create({
   frequencyTabText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
   frequencyTabTextActive: {
-    color: '#6366f1',
+    color: colors.primary[500],
     fontWeight: '600',
   },
   timePickerButton: {
     borderWidth: 2,
-    borderColor: '#e5e7eb',
+    borderColor: colors.border.light,
     borderRadius: 8,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
   },
   timePickerButtonText: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     fontWeight: '500',
   },
   timeModalContainer: {
@@ -490,7 +475,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   timeModalContent: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     maxHeight: '80%',
@@ -503,16 +488,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: colors.border.light,
   },
   timeModalTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   timeModalCloseButton: {
     fontSize: 24,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
     fontWeight: '300',
   },
   timeGrid: {
@@ -531,25 +516,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: '#e5e7eb',
-    backgroundColor: '#f9fafb',
+    borderColor: colors.border.light,
+    backgroundColor: colors.neutral[50],
     alignItems: 'center',
   },
   hourButtonActive: {
-    borderColor: '#6366f1',
-    backgroundColor: '#eef2ff',
+    borderColor: colors.primary[500],
+    backgroundColor: colors.primary[50],
   },
   hourButtonText: {
     fontSize: 13,
     fontWeight: '500',
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
   hourButtonTextActive: {
-    color: '#6366f1',
+    color: colors.primary[500],
     fontWeight: '600',
   },
   timeModalCloseButtonFull: {
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
@@ -558,7 +543,7 @@ const styles = StyleSheet.create({
   timeModalCloseButtonFullText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#ffffff',
+    color: colors.text.inverse,
   },
   buttons: {
     flexDirection: 'row',
@@ -567,8 +552,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 16,
     borderTopWidth: 1,
-    borderTopColor: '#e5e7eb',
-    backgroundColor: '#ffffff',
+    borderTopColor: colors.border.light,
+    backgroundColor: colors.background.secondary,
   },
   actionButtons: {
     flexDirection: 'row',
@@ -581,7 +566,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   deleteConfirmContainer: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     borderRadius: 12,
     padding: 24,
     marginHorizontal: 16,
@@ -595,13 +580,13 @@ const styles = StyleSheet.create({
   deleteConfirmTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#ef4444',
+    color: colors.error[300],
     marginBottom: 12,
   },
   deleteConfirmMessage: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#6b7280',
+    color: colors.text.tertiary,
     marginBottom: 24,
     lineHeight: 20,
   },

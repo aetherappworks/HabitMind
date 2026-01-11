@@ -13,6 +13,7 @@ import { useFocusEffect } from '../../utils/useFocusEffect';
 import { useAIStore } from '../../store/aiStore';
 import { useI18n } from '../../i18n/useI18n';
 import { shadows } from '../../styles/shadows';
+import { colors } from '../../styles/colors';
 import { Button } from '../../components/Button';
 import { Toast } from '../../components/Toast';
 
@@ -220,7 +221,7 @@ export const InsightsScreen: React.FC<InsightsModalProps> = ({ visible, onClose 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.default,
   },
   content: {
     padding: 16,
@@ -235,12 +236,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 4,
   },
   headerSubtitle: {
     fontSize: 13,
-    color: '#6b7280',
+    color: colors.text.tertiary,
   },
   closeButton: {
     padding: 8,
@@ -256,21 +257,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: '#e5e7eb',
-    backgroundColor: '#ffffff',
+    borderColor: colors.border.light,
+    backgroundColor: colors.background.secondary,
   },
   typeButtonActive: {
-    borderColor: '#6366f1',
-    backgroundColor: '#eef2ff',
+    borderColor: colors.primary[500],
+    backgroundColor: colors.primary[50],
   },
   typeButtonText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#6b7280',
+    color: colors.text.tertiary,
     textAlign: 'center',
   },
   typeButtonTextActive: {
-    color: '#6366f1',
+    color: colors.primary[500],
   },
   centerContent: {
     justifyContent: 'center',
@@ -279,22 +280,22 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     marginTop: 12,
   },
   errorTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#ef4444',
+    color: colors.error[300],
     marginBottom: 8,
   },
   errorMessage: {
     fontSize: 13,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     textAlign: 'center',
   },
   contentCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     borderRadius: 12,
     padding: 16,
     marginBottom: 20,
@@ -303,12 +304,12 @@ const styles = StyleSheet.create({
   contentTitle: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 10,
   },
   contentText: {
     fontSize: 13,
-    color: '#4b5563',
+    color: colors.text.secondary,
     lineHeight: 20,
   },
   section: {
@@ -317,11 +318,11 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 12,
   },
   habitSummary: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     borderRadius: 10,
     padding: 12,
     marginBottom: 10,
@@ -336,11 +337,11 @@ const styles = StyleSheet.create({
   habitName: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     flex: 1,
   },
   completionBadge: {
-    backgroundColor: '#dbeafe',
+    backgroundColor: colors.tertiary[50],
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 6,
@@ -348,37 +349,37 @@ const styles = StyleSheet.create({
   completionText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#0369a1',
+    color: colors.tertiary[500],
   },
   progressBar: {
     height: 6,
-    backgroundColor: '#e5e7eb',
+    backgroundColor: colors.border.light,
     borderRadius: 3,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
   },
   trendItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 10,
-    backgroundColor: '#f0fdf4',
+    backgroundColor: colors.success[50],
     borderRadius: 8,
     padding: 12,
     borderLeftWidth: 3,
-    borderLeftColor: '#10b981',
+    borderLeftColor: colors.success[300],
   },
   trendBullet: {
     fontSize: 14,
-    color: '#10b981',
+    color: colors.success[300],
     marginRight: 10,
     fontWeight: '700',
   },
   trendText: {
     fontSize: 13,
-    color: '#047857',
+    color: colors.success[500],
     flex: 1,
     lineHeight: 18,
   },
@@ -391,12 +392,12 @@ const styles = StyleSheet.create({
     borderLeftWidth: 3,
   },
   stepItemEven: {
-    backgroundColor: '#ede9fe',
-    borderLeftColor: '#7c3aed',
+    backgroundColor: colors.secondary[50],
+    borderLeftColor: colors.secondary[300],
   },
   stepItemOdd: {
-    backgroundColor: '#dbeafe',
-    borderLeftColor: '#0284c7',
+    backgroundColor: colors.tertiary[50],
+    borderLeftColor: colors.tertiary[300],
   },
   stepNumber: {
     width: 24,
@@ -408,35 +409,35 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 12,
     marginRight: 10,
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   stepText: {
     fontSize: 13,
-    color: '#1f2937',
+    color: colors.text.primary,
     flex: 1,
     lineHeight: 18,
   },
   creditsInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f3f4f6',
+    backgroundColor: colors.neutral[100],
     borderRadius: 10,
     padding: 12,
     marginBottom: 20,
   },
   creditsLabel: {
     fontSize: 13,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     fontWeight: '500',
     marginLeft: 8,
   },
   creditsValue: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#6366f1',
+    color: colors.primary[500],
   },
   noDataText: {
     fontSize: 14,
-    color: '#9ca3af',
+    color: colors.neutral[400],
   },
 });

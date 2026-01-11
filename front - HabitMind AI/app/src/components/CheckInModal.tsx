@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { shadows } from '../styles/shadows';
+import { colors } from '../styles/colors';
 import { Toast } from './Toast';
 import dayjs from 'dayjs';
 
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.secondary,
     borderRadius: 16,
     padding: 24,
     width: '85%',
@@ -236,7 +237,7 @@ const styles = StyleSheet.create({
     width: 72,
     height: 72,
     borderRadius: 36,
-    backgroundColor: '#eef2ff',
+    backgroundColor: colors.success[50],
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -244,13 +245,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 8,
     textAlign: 'center',
   },
   description: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.tertiary,
     marginBottom: 24,
     textAlign: 'center',
   },
@@ -268,18 +269,18 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   completeButton: {
-    backgroundColor: '#10b981',
+    backgroundColor: colors.success[300],
   },
   skipButton: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: colors.neutral[100],
   },
   buttonText: {
-    color: '#ffffff',
+    color: colors.text.inverse,
     fontSize: 15,
     fontWeight: '600',
   },
   skipButtonText: {
-    color: '#6b7280',
+    color: colors.text.tertiary,
     fontSize: 15,
     fontWeight: '600',
   },
@@ -296,11 +297,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#6366f1',
-    backgroundColor: '#f0f9ff',
+    borderColor: colors.primary[500],
+    backgroundColor: colors.primary[50],
   },
   analyzeButtonText: {
-    color: '#6366f1',
+    color: colors.primary[500],
     fontSize: 14,
     fontWeight: '600',
   },

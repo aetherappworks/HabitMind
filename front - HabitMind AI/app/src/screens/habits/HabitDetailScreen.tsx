@@ -11,6 +11,7 @@ import {
 import { useHabitStore } from '../../store/habitStore';
 import { habitService, CheckInStats } from '../../services/habitService';
 import { shadows } from '../../styles/shadows';
+import { colors } from '../../styles/colors';
 import { Button } from '../../components/Button';
 import { useI18n } from '../../i18n/useI18n';
 import dayjs from 'dayjs';
@@ -100,7 +101,7 @@ export default function HabitDetailScreen({ route, navigation }: any) {
         <View style={styles.statusCard}>
           <View style={styles.statusItem}>
             <Text style={styles.statusLabel}>Status</Text>
-            <Text style={[styles.statusValue, { color: selectedHabit.active ? '#10b981' : '#ef4444' }]}>
+            <Text style={[styles.statusValue, { color: selectedHabit.active ? colors.success[300] : colors.error[300] }]}>
               {selectedHabit.active ? 'Ativo' : 'Inativo'}
             </Text>
           </View>
@@ -187,7 +188,7 @@ export default function HabitDetailScreen({ route, navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.default,
   },
   content: {
     padding: 16,
@@ -204,15 +205,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   description: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.secondary,
   },
   statusCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.card,
     borderRadius: 12,
     padding: 16,
     flexDirection: 'row',
@@ -225,17 +226,17 @@ const styles = StyleSheet.create({
   },
   statusDivider: {
     width: 1,
-    backgroundColor: '#e5e7eb',
+    backgroundColor: colors.border.light,
   },
   statusLabel: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
     marginBottom: 4,
   },
   statusValue: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   statsContainer: {
     marginBottom: 24,
@@ -243,7 +244,7 @@ const styles = StyleSheet.create({
   statsTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
     marginBottom: 12,
   },
   statsGrid: {
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
   },
   statBox: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.card,
     borderRadius: 12,
     padding: 16,
     alignItems: 'center',
@@ -261,15 +262,15 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#6366f1',
+    color: colors.primary[500],
     marginBottom: 4,
   },
   statLabel: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
   },
   infoContainer: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.card,
     borderRadius: 12,
     padding: 16,
     marginBottom: 24,
@@ -277,19 +278,19 @@ const styles = StyleSheet.create({
   },
   infoLabel: {
     fontSize: 12,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
     marginBottom: 4,
   },
   infoValue: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   actions: {
     gap: 12,
   },
   errorText: {
     fontSize: 14,
-    color: '#ef4444',
+    color: colors.error[300],
   },
 });

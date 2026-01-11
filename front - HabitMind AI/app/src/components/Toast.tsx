@@ -6,6 +6,7 @@ import {
   Animated,
   Platform,
 } from 'react-native';
+import { colors } from '../styles/colors';
 
 interface ToastProps {
   message: string;
@@ -42,7 +43,7 @@ export const Toast: React.FC<ToastProps> = ({
 
   if (!visible) return null;
 
-  const backgroundColor = type === 'success' ? '#10b981' : '#ef4444';
+  const backgroundColor = type === 'success' ? colors.success[300] : colors.error[300];
   const icon = type === 'success' ? '✓' : '✕';
 
   return (

@@ -16,6 +16,7 @@ import { useI18n } from '../../i18n/useI18n';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { shadows } from '../../styles/shadows';
+import { colors } from '../../styles/colors';
 import { Toast } from '../../components/Toast';
 
 export default function CreateHabitScreen({ navigation }: any) {
@@ -231,7 +232,7 @@ export default function CreateHabitScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.default,
   },
   flex: {
     flex: 1,
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#374151',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   frequencyTabs: {
@@ -262,12 +263,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: '#e5e7eb',
-    backgroundColor: '#ffffff',
+    borderColor: colors.border.light,
+    backgroundColor: colors.background.card,
   },
   frequencyTabActive: {
-    borderColor: '#6366f1',
-    backgroundColor: '#eef2ff',
+    borderColor: colors.primary[500],
+    backgroundColor: colors.primary[50],
   },
   frequencyTabLabel: {
     fontSize: 24,
@@ -276,33 +277,33 @@ const styles = StyleSheet.create({
   frequencyTabText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#6b7280',
+    color: colors.text.secondary,
   },
   frequencyTabTextActive: {
-    color: '#6366f1',
+    color: colors.primary[500],
     fontWeight: '600',
   },
   timePickerButton: {
     borderWidth: 2,
-    borderColor: '#e5e7eb',
+    borderColor: colors.border.light,
     borderRadius: 8,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.card,
     ...shadows.small,
   },
   timePickerButtonText: {
     fontSize: 14,
-    color: '#6b7280',
+    color: colors.text.secondary,
     fontWeight: '500',
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: colors.background.modal,
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.card,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     maxHeight: '80%',
@@ -315,16 +316,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: colors.border.light,
   },
   modalTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   modalCloseButton: {
     fontSize: 24,
-    color: '#9ca3af',
+    color: colors.text.tertiary,
     fontWeight: '300',
   },
   timeGrid: {
@@ -343,25 +344,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: '#e5e7eb',
-    backgroundColor: '#f9fafb',
+    borderColor: colors.border.light,
+    backgroundColor: colors.background.secondary,
     alignItems: 'center',
   },
   hourButtonActive: {
-    borderColor: '#6366f1',
-    backgroundColor: '#eef2ff',
+    borderColor: colors.primary[500],
+    backgroundColor: colors.primary[50],
   },
   hourButtonText: {
     fontSize: 13,
     fontWeight: '500',
-    color: '#6b7280',
+    color: colors.text.secondary,
   },
   hourButtonTextActive: {
-    color: '#6366f1',
+    color: colors.primary[500],
     fontWeight: '600',
   },
   modalCloseButtonFull: {
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
@@ -370,7 +371,7 @@ const styles = StyleSheet.create({
   modalCloseButtonFullText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#ffffff',
+    color: colors.text.inverse,
   },
   row: {
     flexDirection: 'row',
@@ -381,15 +382,15 @@ const styles = StyleSheet.create({
   },
   selectWrapper: {
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.border.light,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.background.card,
   },
   selectValue: {
     fontSize: 14,
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   buttons: {
     flexDirection: 'row',

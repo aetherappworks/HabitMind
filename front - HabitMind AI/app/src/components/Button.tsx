@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../styles/colors';
 
 interface ButtonProps {
   title: string;
@@ -61,7 +62,7 @@ export const Button: React.FC<ButtonProps> = ({
         <Ionicons
           name={icon as any}
           size={16}
-          color={variant === 'secondary' ? '#6366f1' : '#ffffff'}
+          color={variant === 'secondary' ? colors.primary[500] : '#ffffff'}
           style={styles.icon}
         />
       )}
@@ -90,15 +91,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   primaryButton: {
-    backgroundColor: '#6366f1',
+    backgroundColor: colors.primary[500],
   },
   secondaryButton: {
     backgroundColor: 'transparent',
     borderWidth: 2,
-    borderColor: '#6366f1',
+    borderColor: colors.primary[500],
   },
   dangerButton: {
-    backgroundColor: '#ef4444',
+    backgroundColor: colors.error[300],
   },
   disabled: {
     opacity: 0.5,
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   secondaryText: {
-    color: '#6366f1',
+    color: colors.primary[500],
   },
   dangerText: {
     color: '#ffffff',

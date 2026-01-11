@@ -8,6 +8,7 @@ import {
   TextInputProps,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../styles/colors';
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -42,7 +43,7 @@ export const Input: React.FC<InputProps> = ({
           <Ionicons
             name={icon as any}
             size={20}
-            color="#9ca3af"
+            color={colors.text.tertiary}
             style={styles.icon}
           />
         )}
@@ -53,7 +54,7 @@ export const Input: React.FC<InputProps> = ({
             multiline && styles.multilineInput,
           ]}
           placeholder={placeholder}
-          placeholderTextColor="#d1d5db"
+          placeholderTextColor={colors.text.tertiary}
           multiline={multiline}
           numberOfLines={rows}
           {...props}
@@ -71,27 +72,27 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#374151',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.border.light,
     borderRadius: 8,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.background.secondary,
     paddingHorizontal: 12,
   },
   inputError: {
-    borderColor: '#ef4444',
-    backgroundColor: '#fef2f2',
+    borderColor: colors.error[300],
+    backgroundColor: colors.error[50],
   },
   input: {
     flex: 1,
     paddingVertical: 12,
     fontSize: 14,
-    color: '#1f2937',
+    color: colors.text.primary,
   },
   inputWithIcon: {
     paddingLeft: 0,
@@ -106,6 +107,6 @@ const styles = StyleSheet.create({
   errorText: {
     marginTop: 4,
     fontSize: 12,
-    color: '#ef4444',
+    color: colors.error[300],
   },
 });
