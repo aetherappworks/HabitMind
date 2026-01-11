@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -11,6 +12,7 @@ import { CommonModule } from './common/common.module';
 import { I18nCustomModule } from './i18n/i18n.module';
 import { AdsModule } from './ads/ads.module';
 import { BillingModule } from './billing/billing.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -18,6 +20,7 @@ import { BillingModule } from './billing/billing.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    ScheduleModule.forRoot(),
     I18nCustomModule,
     PrismaModule,
     CommonModule,
@@ -27,6 +30,7 @@ import { BillingModule } from './billing/billing.module';
     AiModule,
     AdsModule,
     BillingModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

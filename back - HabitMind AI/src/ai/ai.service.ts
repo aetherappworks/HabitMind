@@ -119,17 +119,51 @@ export class AiService {
       },
     });
 
+    // If no habits, return generic suggestions instead of error
     if (!userHabits || userHabits.length === 0) {
-      throw new BadRequestException(
-        this.i18n.t('ai.no_habits_yet', lang),
-      );
+      const genericSuggestions = this.getGenericHabitSuggestions(lang);
+      const randomSuggestion = genericSuggestions[Math.floor(Math.random() * genericSuggestions.length)];
+      
+      // Deduct credits even for generic suggestions
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          availableCredits: {
+            decrement: 2,
+          },
+        },
+      });
+
+      return {
+        suggestedHabits: [randomSuggestion],
+        totalCurrentHabits: 0,
+        message: this.i18n.t('ai.habit_suggestion_generated', lang),
+      };
     }
 
     // Generate one habit recommendation based on current habits
     const allSuggestions = this.generateHabitRecommendations(userHabits, lang);
     
     if (!allSuggestions || allSuggestions.length === 0) {
-      throw new BadRequestException('Não foi possível gerar sugestões no momento');
+      // If no complementary suggestions, use generic suggestions
+      const genericSuggestions = this.getGenericHabitSuggestions(lang);
+      const randomSuggestion = genericSuggestions[Math.floor(Math.random() * genericSuggestions.length)];
+      
+      // Deduct credits
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          availableCredits: {
+            decrement: 2,
+          },
+        },
+      });
+
+      return {
+        suggestedHabits: [randomSuggestion],
+        totalCurrentHabits: userHabits.length,
+        message: this.i18n.t('ai.habit_suggestion_generated', lang),
+      };
     }
 
     // Pick a random suggestion from the list
@@ -581,5 +615,100 @@ ${completionRate < 30
       insights,
       confidenceScore,
     };
+  }
+
+  private getGenericHabitSuggestions(lang: string = 'pt-br'): any[] {
+    const genericSuggestions = [
+      {
+        title: 'Meditação Matinal',
+        reason: 'Uma excelente forma de começar o dia com clareza e foco.',
+        category: 'meditation',
+        priority: 0.9,
+        relatedHabit: null,
+        completionRate: 0,
+        confidence: 0.85,
+        benefits: ['Reduz estresse', 'Melhora foco', 'Estabiliza emoções', 'Aumenta criatividade'],
+        difficulty: 'easy',
+      },
+      {
+        title: 'Exercício Físico',
+        reason: 'Atividade essencial para saúde, energia e bem-estar geral.',
+        category: 'exercise',
+        priority: 0.95,
+        relatedHabit: null,
+        completionRate: 0,
+        confidence: 0.9,
+        benefits: ['Melhora saúde cardiovascular', 'Aumenta energia', 'Reduz estresse', 'Melhora sono'],
+        difficulty: 'medium',
+      },
+      {
+        title: 'Leitura Diária',
+        reason: 'Expande conhecimento e oferece momento de relaxamento.',
+        category: 'reading',
+        priority: 0.8,
+        relatedHabit: null,
+        completionRate: 0,
+        confidence: 0.8,
+        benefits: ['Aumenta conhecimento', 'Reduz estresse', 'Melhora vocabulário', 'Estimula criatividade'],
+        difficulty: 'easy',
+      },
+      {
+        title: 'Planejamento Diário',
+        reason: 'Organizando seu dia, você aumenta produtividade e reduz ansiedade.',
+        category: 'productivity',
+        priority: 0.85,
+        relatedHabit: null,
+        completionRate: 0,
+        confidence: 0.85,
+        benefits: ['Aumenta produtividade', 'Reduz estresse', 'Melhora foco', 'Garante progresso'],
+        difficulty: 'easy',
+      },
+      {
+        title: 'Hidratação Adequada',
+        reason: 'Essencial para manter energia, cognição e saúde geral.',
+        category: 'health',
+        priority: 0.9,
+        relatedHabit: null,
+        completionRate: 0,
+        confidence: 0.88,
+        benefits: ['Melhora energia', 'Melhora cognição', 'Melhora saúde', 'Aumenta resistência'],
+        difficulty: 'easy',
+      },
+      {
+        title: 'Journaling Reflexivo',
+        reason: 'Auto-reflexão que melhora autoconhecimento e clareza pessoal.',
+        category: 'meditation',
+        priority: 0.75,
+        relatedHabit: null,
+        completionRate: 0,
+        confidence: 0.8,
+        benefits: ['Melhora autoconhecimento', 'Reduz ansiedade', 'Consolida aprendizados', 'Aumenta criatividade'],
+        difficulty: 'easy',
+      },
+      {
+        title: 'Caminhada Diária',
+        reason: 'Atividade leve que melhora saúde física e mental.',
+        category: 'health',
+        priority: 0.85,
+        relatedHabit: null,
+        completionRate: 0,
+        confidence: 0.82,
+        benefits: ['Melhora cardiovascular', 'Aumenta energia', 'Reduz estresse', 'Melhora sono'],
+        difficulty: 'easy',
+      },
+      {
+        title: 'Sono Regular',
+        reason: 'Base fundamental para recuperação, saúde e bem-estar geral.',
+        category: 'health',
+        priority: 0.95,
+        relatedHabit: null,
+        completionRate: 0,
+        confidence: 0.9,
+        benefits: ['Melhora recuperação', 'Aumenta imunidade', 'Melhora cognição', 'Estabiliza emoções'],
+        difficulty: 'medium',
+      },
+    ];
+
+    return genericSuggestions;
   }
 }

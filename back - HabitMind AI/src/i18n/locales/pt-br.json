@@ -87,5 +87,13 @@
       "updated": "Atualizado com sucesso",
       "deleted": "Deletado com sucesso"
     }
+  },
+  "notifications": {
+    "habit_reminder_title": "⏰ Lembrete de Hábito",
+    "habit_reminder_body": "Hora de fazer seu hábito: {{habitName}}. Você tem 10 minutos!",
+    "achievement_title": "🏆 Parabéns!",
+    "achievement_body": "Você completou 7 dias seguidos no hábito: {{habitName}}",
+    "encouragement_title": "💪 Motivação",
+    "encouragement_body": "Continue assim! Você está progredindo no hábito: {{habitName}}"
   }
 }

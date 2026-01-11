@@ -22,6 +22,7 @@ model User {
   availableCredits Int @default(10)
   totalCredits     Int @default(10)
   lastCreditRefillAt DateTime?
+  deviceToken String?   // Expo push notification token
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
@@ -29,6 +30,7 @@ model User {
   habits    Habit[]
   aiInsights AIInsight[]
   adViews   AdView[]
+  notificationLogs NotificationLog[]
 
   @@map("users")
 }
@@ -143,4 +145,27 @@ model AdConfig {
   updatedAt       DateTime   @updatedAt
 
   @@map("ad_configs")
+}
+
+// ============================================
+// Notification Log (Histórico de notificações)
+// ============================================
+model NotificationLog {
+  id              String     @id @default(cuid())
+  userId          String
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  habitId         String
+  type            String     // "habit_reminder" | "achievement" | "encouragement"
+  title           String
+  body            String
+  sentAt          DateTime   @default(now())
+  viewed          Boolean    @default(false)
+  
+  createdAt       DateTime   @default(now())
+
+  @@map("notification_logs")
+  @@index([userId])
+  @@index([habitId])
+  @@index([sentAt])
 }

@@ -87,5 +87,13 @@
       "updated": "Updated successfully",
       "deleted": "Deleted successfully"
     }
+  },
+  "notifications": {
+    "habit_reminder_title": "⏰ Habit Reminder",
+    "habit_reminder_body": "Time for your habit: {{habitName}}. You have 10 minutes!",
+    "achievement_title": "🏆 Congratulations!",
+    "achievement_body": "You completed 7 days in a row on: {{habitName}}",
+    "encouragement_title": "💪 Keep Going",
+    "encouragement_body": "You're making great progress on: {{habitName}}"
   }
 }
