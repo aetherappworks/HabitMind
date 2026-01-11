@@ -48,12 +48,9 @@ export const HabitSuggestionsModal: React.FC<HabitSuggestionsModalProps> = ({
 
   const loadSuggestion = async () => {
     try {
-      console.log('🔄 [HabitSuggestionsModal] Gerando sugestão...');
       clearError();
       await getSingleHabitSuggestion();
-      console.log('✅ [HabitSuggestionsModal] Sugestão gerada com sucesso');
     } catch (err) {
-      console.error('❌ [HabitSuggestionsModal] Erro ao gerar sugestão:', err);
       const message = err instanceof Error ? err.message : 'Erro ao gerar sugestão';
       setToastMessage(`❌ ${message}`);
       setToastType('error');
@@ -73,9 +70,8 @@ export const HabitSuggestionsModal: React.FC<HabitSuggestionsModalProps> = ({
       // Atualizar créditos
       try {
         await loadCredits();
-        console.log('💳 [HabitSuggestionsModal] Créditos atualizados');
       } catch (err) {
-        console.warn('⚠️ [HabitSuggestionsModal] Erro ao atualizar créditos:', err);
+        // Erro silencioso ao atualizar créditos
       }
 
       setToastMessage(`✓ Hábito "${suggestion.title}" criado com sucesso!`);

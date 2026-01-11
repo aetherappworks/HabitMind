@@ -44,8 +44,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({
 
   React.useEffect(() => {
     if (visible) {
-      console.log('\n=== MODAL ABERTO ===');
-      console.log('Props recebidas:', { habitTitle, completedToday, skippedToday, visible });
+      // Modal aberto
     }
   }, [visible, completedToday, skippedToday]);
 

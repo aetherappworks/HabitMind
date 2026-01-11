@@ -1,0 +1,161 @@
+{
+  "auth": {
+    "errors": {
+      "user_already_exists": "Usuário já existe",
+      "invalid_credentials": "Email ou senha inválido",
+      "user_not_found": "Usuário não encontrado",
+      "weak_password": "Senha muito fraca. Mínimo 8 caracteres",
+      "invalid_email": "Email inválido",
+      "email_required": "Email é obrigatório",
+      "password_required": "Senha é obrigatória"
+    },
+    "messages": {
+      "registered_successfully": "Registrado com sucesso",
+      "logged_in_successfully": "Conectado com sucesso",
+      "check_email": "Verifique seu email para continuar"
+    }
+  },
+  "habits": {
+    "errors": {
+      "habit_not_found": "Hábito não encontrado",
+      "invalid_habit_data": "Dados do hábito inválidos",
+      "habit_already_exists": "Este hábito já existe",
+      "habit_name_required": "Título é obrigatório",
+      "invalid_frequency": "Frequência inválida"
+    },
+    "labels": {
+      "habit_name": "Título do Hábito",
+      "description": "Descrição (opcional)",
+      "frequency": "Frequência do Hábito",
+      "preferred_time": "Hora Preferida (opcional)",
+      "delete_habit": "Deletar Hábito",
+      "select_time": "Selecione o horário"
+    },
+    "placeholders": {
+      "habit_name": "Ex: Fazer exercício",
+      "description": "Ex: 30 minutos de corrida",
+      "select_time": "⏰ Selecionar horário"
+    },
+    "messages": {
+      "habit_created": "Hábito criado com sucesso",
+      "habit_updated": "Hábito atualizado com sucesso",
+      "habit_deleted": "Hábito deletado com sucesso",
+      "checkin_created": "Check-in registrado com sucesso",
+      "no_habits": "Nenhum Hábito",
+      "create_first_habit": "Comece criando seu primeiro hábito"
+    },
+    "buttons": {
+      "create": "Criar Hábito",
+      "create_first": "Criar Primeiro Hábito"
+    }
+  },
+  "users": {
+    "errors": {
+      "user_not_found": "Usuário não encontrado",
+      "invalid_user_data": "Dados do usuário inválidos",
+      "profile_update_failed": "Falha ao atualizar perfil"
+    },
+    "messages": {
+      "profile_updated": "Perfil atualizado com sucesso",
+      "preferences_updated": "Preferências atualizadas com sucesso"
+    }
+  },
+  "ai": {
+    "errors": {
+      "analysis_failed": "Falha ao analisar hábito",
+      "insufficient_data": "Dados insuficientes para análise",
+      "insufficient_credits": "Créditos insuficientes para análise. Assista anúncios ou faça upgrade"
+    },
+    "messages": {
+      "analysis_completed": "Análise completada com sucesso",
+      "insights_generated": "Insights gerados com sucesso",
+      "insights_loaded": "Insights carregados com sucesso",
+      "habit_suggestions_generated": "Sugestões de novos hábitos geradas com sucesso",
+      "habit_suggestion_generated": "Sugestão de novo hábito gerada com sucesso",
+      "no_habits_yet": "Comece a rastrear hábitos para receber sugestões personalizadas"
+    }
+  },
+  "ads": {
+    "errors": {
+      "ad_type_not_enabled": "Este tipo de anúncio não está disponível",
+      "daily_limit_reached": "Limite de anúncios diário atingido",
+      "ad_view_not_found": "Visualização de anúncio não encontrada",
+      "unauthorized_ad_claim": "Não autorizado para reivindicar este anúncio",
+      "reward_already_claimed": "Recompensa já foi reivindicada",
+      "invalid_token": "Token de anúncio inválido",
+      "ad_config_not_found": "Configuração de anúncio não encontrada"
+    },
+    "messages": {
+      "ad_view_recorded": "Anúncio registrado com sucesso",
+      "reward_granted": "Recompensa concedida com sucesso",
+      "reward_validation_failed": "Falha ao validar recompensa"
+    }
+  },
+  "common": {
+    "errors": {
+      "unauthorized": "Não autorizado",
+      "forbidden": "Acesso proibido",
+      "internal_error": "Erro interno do servidor",
+      "bad_request": "Requisição inválida",
+      "not_found": "Recurso não encontrado",
+      "rate_limit_exceeded": "Limite de requisições excedido",
+      "invalid_token": "Token inválido ou expirado",
+      "user_not_found": "Usuário não encontrado",
+      "error_loading": "Erro ao carregar"
+    },
+    "messages": {
+      "success": "Operação realizada com sucesso",
+      "created": "Criado com sucesso",
+      "updated": "Atualizado com sucesso",
+      "deleted": "Deletado com sucesso",
+      "confirm_delete": "Tem certeza que deseja deletar",
+      "confirm_logout": "Tem certeza que deseja sair?"
+    }
+  },
+  "ui": {
+    "buttons": {
+      "login": "Conectar",
+      "register": "Registrar",
+      "logout": "Desconectar",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "delete": "Deletar",
+      "edit": "Editar",
+      "create": "Criar",
+      "submit": "Enviar",
+      "back": "Voltar",
+      "next": "Próximo",
+      "previous": "Anterior",
+      "close": "Fechar",
+      "confirm": "Confirmar",
+      "loading": "Carregando...",
+      "retry": "Tentar novamente",
+      "try_again": "Tentar Novamente"
+    },
+    "labels": {
+      "email": "Email",
+      "password": "Senha",
+      "name": "Nome",
+      "habitName": "Nome do Hábito",
+      "description": "Descrição",
+      "frequency": "Frequência",
+      "language": "Idioma",
+      "credits": "Créditos",
+      "settings": "Configurações",
+      "profile": "Perfil"
+    },
+    "placeholders": {
+      "email": "Digite seu email",
+      "password": "Digite sua senha",
+      "habitName": "Ex: Exercício matinal",
+      "description": "Descreva seu hábito"
+    },
+    "notifications": {
+      "success": "Sucesso!",
+      "error": "Erro!",
+      "warning": "Aviso",
+      "info": "Informação",
+      "logout": "Sair da Conta"
+    }
+  }
+}

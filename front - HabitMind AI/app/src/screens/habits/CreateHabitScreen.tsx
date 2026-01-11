@@ -12,6 +12,7 @@ import {
   Modal,
 } from 'react-native';
 import { useHabitStore } from '../../store/habitStore';
+import { useI18n } from '../../i18n/useI18n';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { shadows } from '../../styles/shadows';
@@ -28,6 +29,7 @@ export default function CreateHabitScreen({ navigation }: any) {
   const [toastMessage, setToastMessage] = React.useState('');
   const [toastType, setToastType] = React.useState<'success' | 'error'>('success');
   const { createHabit, isLoading } = useHabitStore();
+  const { t } = useI18n();
 
   const hours = Array.from({ length: 24 }, (_, i) => 
     `${String(i).padStart(2, '0')}:00`
@@ -36,7 +38,7 @@ export default function CreateHabitScreen({ navigation }: any) {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!title) newErrors.title = 'Título é obrigatório';
+    if (!title) newErrors.title = t('habits.errors.habit_name_required');
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -53,7 +55,7 @@ export default function CreateHabitScreen({ navigation }: any) {
         preferredTime: preferredTime || undefined,
       });
 
-      setToastMessage('✓ Hábito criado com sucesso!');
+      setToastMessage(t('habits.messages.habit_created'));
       setToastType('success');
       setShowToast(true);
 
@@ -65,7 +67,7 @@ export default function CreateHabitScreen({ navigation }: any) {
       setToastMessage(
         error instanceof Error
           ? error.message
-          : 'Erro ao criar hábito'
+          : t('common.errors.internal_error')
       );
       setToastType('error');
       setShowToast(true);
@@ -90,8 +92,8 @@ export default function CreateHabitScreen({ navigation }: any) {
         >
           <View style={styles.form}>
             <Input
-              label="Título do Hábito"
-              placeholder="Ex: Fazer exercício"
+              label={t('habits.labels.habit_name')}
+              placeholder={t('habits.placeholders.habit_name')}
               value={title}
               onChangeText={setTitle}
               error={errors.title}
@@ -99,8 +101,8 @@ export default function CreateHabitScreen({ navigation }: any) {
             />
 
             <Input
-              label="Descrição (opcional)"
-              placeholder="Ex: 30 minutos de corrida"
+              label={t('habits.labels.description')}
+              placeholder={t('habits.placeholders.description')}
               value={description}
               onChangeText={setDescription}
               multiline
@@ -108,12 +110,11 @@ export default function CreateHabitScreen({ navigation }: any) {
             />
 
             <View>
-              <Text style={styles.label}>Frequência do Hábito</Text>
+              <Text style={styles.label}>{t('habits.labels.frequency')}</Text>
               <View style={styles.frequencyTabs}>
                 {[
                   { value: 'daily', label: 'Diário', icon: '📅' },
                   { value: 'weekly', label: 'Semanal', icon: '📆' },
-                  { value: 'custom', label: 'Customizado', icon: '⚙️' },
                 ].map((option) => (
                   <TouchableOpacity
                     key={option.value}
@@ -140,14 +141,14 @@ export default function CreateHabitScreen({ navigation }: any) {
 
             {/* Hora Preferida */}
             <View>
-              <Text style={styles.label}>Hora Preferida (opcional)</Text>
+              <Text style={styles.label}>{t('habits.labels.preferred_time')}</Text>
               <TouchableOpacity
                 style={styles.timePickerButton}
                 onPress={() => setShowTimePicker(true)}
                 activeOpacity={0.7}
               >
                 <Text style={styles.timePickerButtonText}>
-                  {preferredTime ? `${preferredTime}` : '⏰ Selecionar horário'}
+                  {preferredTime ? `${preferredTime}` : t('habits.placeholders.select_time')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -163,7 +164,7 @@ export default function CreateHabitScreen({ navigation }: any) {
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
                 <View style={styles.modalHeader}>
-                  <Text style={styles.modalTitle}>Selecione o horário</Text>
+                  <Text style={styles.modalTitle}>{t('habits.labels.select_time')}</Text>
                   <TouchableOpacity onPress={() => setShowTimePicker(false)}>
                     <Text style={styles.modalCloseButton}>✕</Text>
                   </TouchableOpacity>
@@ -201,7 +202,7 @@ export default function CreateHabitScreen({ navigation }: any) {
                   style={styles.modalCloseButtonFull}
                   onPress={() => setShowTimePicker(false)}
                 >
-                  <Text style={styles.modalCloseButtonFullText}>Fechar</Text>
+                  <Text style={styles.modalCloseButtonFullText}>{t('ui.buttons.close')}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -209,13 +210,13 @@ export default function CreateHabitScreen({ navigation }: any) {
 
           <View style={styles.buttons}>
             <Button
-              title="Cancelar"
+              title={t('ui.buttons.cancel')}
               onPress={() => navigation.goBack()}
               variant="secondary"
               size="medium"
             />
             <Button
-              title={isLoading ? 'Criando...' : 'Criar Hábito'}
+              title={isLoading ? t('ui.buttons.loading') : t('habits.buttons.create')}
               onPress={handleCreate}
               disabled={isLoading}
               size="medium"

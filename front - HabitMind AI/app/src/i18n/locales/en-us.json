@@ -1,0 +1,161 @@
+{
+  "auth": {
+    "errors": {
+      "user_already_exists": "User already exists",
+      "invalid_credentials": "Invalid email or password",
+      "user_not_found": "User not found",
+      "weak_password": "Password is too weak. Minimum 8 characters",
+      "invalid_email": "Invalid email address",
+      "email_required": "Email is required",
+      "password_required": "Password is required"
+    },
+    "messages": {
+      "registered_successfully": "Registered successfully",
+      "logged_in_successfully": "Logged in successfully",
+      "check_email": "Check your email to continue"
+    }
+  },
+  "habits": {
+    "errors": {
+      "habit_not_found": "Habit not found",
+      "invalid_habit_data": "Invalid habit data",
+      "habit_already_exists": "This habit already exists",
+      "habit_name_required": "Title is required",
+      "invalid_frequency": "Invalid frequency"
+    },
+    "labels": {
+      "habit_name": "Habit Title",
+      "description": "Description (optional)",
+      "frequency": "Habit Frequency",
+      "preferred_time": "Preferred Time (optional)",
+      "delete_habit": "Delete Habit",
+      "select_time": "Select time"
+    },
+    "placeholders": {
+      "habit_name": "Ex: Exercise",
+      "description": "Ex: 30 minutes running",
+      "select_time": "⏰ Select time"
+    },
+    "messages": {
+      "habit_created": "Habit created successfully",
+      "habit_updated": "Habit updated successfully",
+      "habit_deleted": "Habit deleted successfully",
+      "checkin_created": "Check-in recorded successfully",
+      "no_habits": "No Habits",
+      "create_first_habit": "Start by creating your first habit"
+    },
+    "buttons": {
+      "create": "Create Habit",
+      "create_first": "Create First Habit"
+    }
+  },
+  "users": {
+    "errors": {
+      "user_not_found": "User not found",
+      "invalid_user_data": "Invalid user data",
+      "profile_update_failed": "Failed to update profile"
+    },
+    "messages": {
+      "profile_updated": "Profile updated successfully",
+      "preferences_updated": "Preferences updated successfully"
+    }
+  },
+  "ai": {
+    "errors": {
+      "analysis_failed": "Failed to analyze habit",
+      "insufficient_data": "Insufficient data for analysis",
+      "insufficient_credits": "Insufficient credits for analysis. Watch ads or upgrade"
+    },
+    "messages": {
+      "analysis_completed": "Analysis completed successfully",
+      "insights_generated": "Insights generated successfully",
+      "insights_loaded": "Insights loaded successfully",
+      "habit_suggestions_generated": "New habit suggestions generated successfully",
+      "habit_suggestion_generated": "New habit suggestion generated successfully",
+      "no_habits_yet": "Start tracking habits to receive personalized suggestions"
+    }
+  },
+  "ads": {
+    "errors": {
+      "ad_type_not_enabled": "This ad type is not available",
+      "daily_limit_reached": "Daily ad limit reached",
+      "ad_view_not_found": "Ad view not found",
+      "unauthorized_ad_claim": "Not authorized to claim this ad",
+      "reward_already_claimed": "Reward already claimed",
+      "invalid_token": "Invalid ad token",
+      "ad_config_not_found": "Ad configuration not found"
+    },
+    "messages": {
+      "ad_view_recorded": "Ad recorded successfully",
+      "reward_granted": "Reward granted successfully",
+      "reward_validation_failed": "Failed to validate reward"
+    }
+  },
+  "common": {
+    "errors": {
+      "unauthorized": "Unauthorized",
+      "forbidden": "Forbidden",
+      "internal_error": "Internal server error",
+      "bad_request": "Bad request",
+      "not_found": "Resource not found",
+      "rate_limit_exceeded": "Rate limit exceeded",
+      "invalid_token": "Invalid or expired token",
+      "user_not_found": "User not found",
+      "error_loading": "Error loading"
+    },
+    "messages": {
+      "success": "Operation completed successfully",
+      "created": "Created successfully",
+      "updated": "Updated successfully",
+      "deleted": "Deleted successfully",
+      "confirm_delete": "Are you sure you want to delete",
+      "confirm_logout": "Are you sure you want to logout?"
+    }
+  },
+  "ui": {
+    "buttons": {
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "create": "Create",
+      "submit": "Submit",
+      "back": "Back",
+      "next": "Next",
+      "previous": "Previous",
+      "close": "Close",
+      "confirm": "Confirm",
+      "loading": "Loading...",
+      "retry": "Try again",
+      "try_again": "Try Again"
+    },
+    "labels": {
+      "email": "Email",
+      "password": "Password",
+      "name": "Name",
+      "habitName": "Habit Name",
+      "description": "Description",
+      "frequency": "Frequency",
+      "language": "Language",
+      "credits": "Credits",
+      "settings": "Settings",
+      "profile": "Profile"
+    },
+    "placeholders": {
+      "email": "Enter your email",
+      "password": "Enter your password",
+      "habitName": "Ex: Morning exercise",
+      "description": "Describe your habit"
+    },
+    "notifications": {
+      "success": "Success!",
+      "error": "Error!",
+      "warning": "Warning",
+      "info": "Information",
+      "logout": "Logout"
+    }
+  }
+}

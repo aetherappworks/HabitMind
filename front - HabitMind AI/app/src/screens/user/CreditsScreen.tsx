@@ -12,11 +12,14 @@ import {
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useCreditStore } from '../../store/creditStore';
+import { useI18n } from '../../i18n/useI18n';
 import { shadows } from '../../styles/shadows';
 import { Button } from '../../components/Button';
 import { Toast } from '../../components/Toast';
 
 export default function CreditsScreen({ navigation }: any) {
+  const { t } = useI18n();
+  
   // Configure header to go back to Dashboard instead of Profile
   useEffect(() => {
     navigation.setOptions({
@@ -314,7 +317,7 @@ export default function CreditsScreen({ navigation }: any) {
 
 
           <View style={styles.earnCard}>
-            <View style={styles.earnIcon}>📺</View>
+            <Text style={styles.earnIcon}>📺</Text>
             <View style={styles.earnContent}>
               <Text style={styles.earnTitle}>Assistir Anúncios</Text>
               <Text style={styles.earnDesc}>+10 créditos por vídeo</Text>
@@ -322,7 +325,7 @@ export default function CreditsScreen({ navigation }: any) {
           </View>
 
           <View style={styles.earnCard}>
-            <View style={styles.earnIcon}>✨</View>
+            <Text style={styles.earnIcon}>✨</Text>
             <View style={styles.earnContent}>
               <Text style={styles.earnTitle}>Assinatura Premium</Text>
               <Text style={styles.earnDesc}>Limite diário ilimitado</Text>
@@ -330,7 +333,7 @@ export default function CreditsScreen({ navigation }: any) {
           </View>
 
           <View style={styles.earnCard}>
-            <View style={styles.earnIcon}>🎯</View>
+            <Text style={styles.earnIcon}>🎯</Text>
             <View style={styles.earnContent}>
               <Text style={styles.earnTitle}>Completar Hábitos</Text>
               <Text style={styles.earnDesc}>+1 crédito por hábito</Text>

@@ -18,6 +18,7 @@ import { CheckInModal } from '../../components/CheckInModal';
 import { AIAnalysisModal } from '../../components/AIAnalysisModal';
 import { HabitSuggestionsModal } from '../../components/HabitSuggestionsModal';
 import { Button } from '../../components/Button';
+import { useI18n } from '../../i18n/useI18n';
 import { authService, UserCredits } from '../../services/authService';
 import { habitService, CheckIn } from '../../services/habitService';
 import { shadows } from '../../styles/shadows';
@@ -38,6 +39,7 @@ export default function DashboardScreen({ navigation }: any) {
     getHabits: state.getHabits,
     createCheckIn: state.createCheckIn,
   }));
+  const { t } = useI18n();
   const [refreshing, setRefreshing] = React.useState(false);
   const [credits, setCredits] = React.useState<UserCredits | null>(null);
   const [showCreateModal, setShowCreateModal] = React.useState(false);
@@ -111,23 +113,32 @@ export default function DashboardScreen({ navigation }: any) {
   };
 
   const handleDelete = (habitId: string, habitTitle: string) => {
+    console.log('🗑️ [handleDelete] Iniciando deleção:', { habitId, habitTitle });
     Alert.alert(
-      'Deletar Hábito',
-      `Tem certeza que deseja deletar "${habitTitle}"?`,
+      t('habits.labels.delete_habit'),
+      `${t('common.messages.confirm_delete')} "${habitTitle}"?`,
       [
-        { text: 'Cancelar', onPress: () => {}, style: 'cancel' },
+        { text: t('ui.buttons.cancel'), onPress: () => {}, style: 'cancel' },
         {
-          text: 'Deletar',
+          text: t('ui.buttons.delete'),
           onPress: async () => {
             try {
-              // TODO: Implement deleteHabit
-              Alert.alert('Sucesso', 'Hábito deletado com sucesso');
+              console.log('🗑️ [handleDelete] Confirmado, chamando deleteHabit:', habitId);
+              const result = await deleteHabit(habitId);
+              console.log('✅ [handleDelete] deleteHabit sucesso:', result);
+              
+              console.log('🔄 [handleDelete] Recarregando hábitos...');
+              await loadHabits();
+              console.log('✅ [handleDelete] Hábitos recarregados');
+              
+              Alert.alert(t('ui.notifications.success'), t('habits.messages.habit_deleted'));
             } catch (error) {
+              console.error('❌ [handleDelete] Erro ao deletar:', error);
               Alert.alert(
-                'Erro',
+                t('ui.notifications.error'),
                 error instanceof Error
                   ? error.message
-                  : 'Erro ao deletar hábito'
+                  : t('common.errors.internal_error')
               );
             }
           },
@@ -180,8 +191,10 @@ export default function DashboardScreen({ navigation }: any) {
   };
 
   const handleEditHabit = (habitId: string) => {
+    console.log('✏️ [DashboardScreen] handleEditHabit chamado:', habitId);
     setEditingHabitId(habitId);
     setShowEditModal(true);
+    console.log('✏️ [DashboardScreen] Modal de edição aberto com habitId:', habitId);
   };
 
   const handleCloseEditModal = () => {
@@ -305,12 +318,12 @@ export default function DashboardScreen({ navigation }: any) {
       {habits.length === 0 ? (
         <View style={styles.emptyState}>
           <Text style={styles.emptyStateIcon}>📝</Text>
-          <Text style={styles.emptyStateTitle}>Nenhum Hábito</Text>
+          <Text style={styles.emptyStateTitle}>{t('habits.messages.no_habits')}</Text>
           <Text style={styles.emptyStateSubtitle}>
-            Comece criando seu primeiro hábito
+            {t('habits.messages.create_first_habit')}
           </Text>
           <Button
-            title="Criar Primeiro Hábito"
+            title={t('habits.buttons.create_first')}
             onPress={() => setShowCreateModal(true)}
             size="large"
           />
@@ -323,21 +336,11 @@ export default function DashboardScreen({ navigation }: any) {
             const today = dayjs.utc().format('YYYY-MM-DD');
             const habitCheckInsList = habitCheckIns[item.id] || [];
             
-            console.log(`\n--- RENDERIZANDO CARD PARA ${item.title} (${item.id}) ---`);
-            console.log('Check-ins disponíveis:', habitCheckInsList);
-            console.log('Hoje (UTC):', today);
-            
             const todayCheckins = habitCheckInsList.filter((c) => {
-              const rawDate = c.date;
               const checkInDate = dayjs.utc(c.date).format('YYYY-MM-DD');
               const matches = checkInDate === today;
-              console.log(`  - Data bruta: "${rawDate}"`);
-              console.log(`  - Data formatada (UTC): "${checkInDate}" === "${today}" → ${matches}`);
-              if (matches) console.log(`  ✓ Encontrado check-in de hoje:`, c);
               return matches;
             });
-            
-            console.log('Check-ins de hoje filtrados:', todayCheckins);
             
             const completedToday = todayCheckins.some(
               (c) => c.status === 'completed'
@@ -345,8 +348,6 @@ export default function DashboardScreen({ navigation }: any) {
             const skippedToday = todayCheckins.some(
               (c) => c.status === 'skipped'
             );
-            
-            console.log('Props do card:', { completedToday, skippedToday });
 
             return (
               <HabitCard

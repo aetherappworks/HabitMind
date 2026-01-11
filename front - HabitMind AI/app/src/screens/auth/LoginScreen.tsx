@@ -9,6 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import { useAuthStore } from '../../store/authStore';
+import { useI18n } from '../../i18n/useI18n';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '../../components/Button';
 
@@ -17,13 +18,14 @@ export default function LoginScreen() {
   const [password, setPassword] = React.useState('');
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const { login, isLoading } = useAuthStore();
+  const { t } = useI18n();
   const navigation = useNavigation<any>();
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!email) newErrors.email = 'Email é obrigatório';
-    if (!password) newErrors.password = 'Senha é obrigatória';
+    if (!email) newErrors.email = t('auth.errors.email_required');
+    if (!password) newErrors.password = t('auth.errors.password_required');
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -36,8 +38,8 @@ export default function LoginScreen() {
       await login(email, password);
     } catch (error) {
       Alert.alert(
-        'Erro de Login',
-        error instanceof Error ? error.message : 'Falha ao fazer login'
+        t('ui.notifications.error'),
+        error instanceof Error ? error.message : t('auth.errors.invalid_credentials')
       );
     }
   };
@@ -48,20 +50,20 @@ export default function LoginScreen() {
         <View style={styles.header}>
           <Text style={styles.logo}>HabitMind AI</Text>
           <Text style={styles.subtitle}>
-            Rastreie seus hábitos com IA
+            {t('auth.messages.check_email')}
           </Text>
         </View>
 
         <View style={styles.form}>
           {/* Email Input */}
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Email</Text>
+            <Text style={styles.label}>{t('ui.labels.email')}</Text>
             <TextInput
               style={[
                 styles.input,
                 errors.email && styles.inputError,
               ]}
-              placeholder="seu@email.com"
+              placeholder={t('ui.placeholders.email')}
               placeholderTextColor="#d1d5db"
               value={email}
               onChangeText={setEmail}
@@ -75,13 +77,13 @@ export default function LoginScreen() {
 
           {/* Password Input */}
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Senha</Text>
+            <Text style={styles.label}>{t('ui.labels.password')}</Text>
             <TextInput
               style={[
                 styles.input,
                 errors.password && styles.inputError,
               ]}
-              placeholder="Sua senha"
+              placeholder={t('ui.placeholders.password')}
               placeholderTextColor="#d1d5db"
               value={password}
               onChangeText={setPassword}
@@ -95,7 +97,7 @@ export default function LoginScreen() {
 
           {/* Login Button */}
           <Button
-            title={isLoading ? 'Entrando...' : 'Entrar'}
+            title={isLoading ? t('ui.buttons.loading') : t('ui.buttons.login')}
             onPress={handleLogin}
             disabled={isLoading}
             size="large"
@@ -103,9 +105,9 @@ export default function LoginScreen() {
 
           {/* Register Link */}
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Não tem conta? </Text>
+            <Text style={styles.footerText}>{t('auth.messages.registered_successfully')} </Text>
             <Button
-              title="Criar conta"
+              title={t('ui.buttons.register')}
               onPress={() => navigation.navigate('Register')}
               variant="secondary"
               size="small"

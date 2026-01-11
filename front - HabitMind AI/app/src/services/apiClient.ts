@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosError, AxiosRequestConfig } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { secureStorage } from '../utils/secureStorage';
 import { Platform } from 'react-native';
+import { useLanguageStore } from '../store/languageStore';
 
 // No Android Emulator, localhost não funciona
 // Use 10.0.2.2 para acessar o host (seu PC)
@@ -43,8 +44,18 @@ class ApiClient {
           if (token) {
             config.headers.Authorization = `Bearer ${token}`;
           }
+
+          // Add language header from language store
+          const { language } = useLanguageStore.getState();
+          if (language) {
+            config.headers['Accept-Language'] = language;
+            // Also add as query parameter for compatibility
+            const url = new URL(config.url || '', API_BASE_URL);
+            url.searchParams.set('lang', language);
+            config.url = url.pathname + url.search;
+          }
         } catch (error) {
-          console.error('Error retrieving token:', error);
+          console.error('Error retrieving token or language:', error);
         }
         return config;
       },

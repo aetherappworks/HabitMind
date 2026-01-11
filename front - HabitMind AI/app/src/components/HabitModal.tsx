@@ -8,7 +8,6 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from 'react-native';
 import { useHabitStore } from '../store/habitStore';
 import { Input } from './Input';
@@ -38,21 +37,29 @@ export const HabitModal: React.FC<HabitModalProps> = ({
   const [toastMessage, setToastMessage] = React.useState('');
   const [toastType, setToastType] = React.useState<'success' | 'error'>('success');
   const [isLoadingHabit, setIsLoadingHabit] = React.useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
   const { createHabit, updateHabit, deleteHabit, isLoading, habits } = useHabitStore();
 
   const isEditing = !!habitId;
   const modalTitle = isEditing ? 'Editar Hábito' : 'Criar Novo Hábito';
 
+  console.log('🎯 [HabitModal] Props recebidas:', { visible, habitId, isEditing, modalTitle });
+
   // Load habit data when modal opens in edit mode
   React.useEffect(() => {
     if (visible && isEditing && habitId) {
+      console.log('📂 [HabitModal] Carregando dados do hábito:', habitId);
       setIsLoadingHabit(true);
       const habit = habits.find((h) => h.id === habitId);
       if (habit) {
+        console.log('✅ [HabitModal] Hábito encontrado:', habit.title);
         setTitle(habit.title);
         setDescription(habit.description || '');
         setFrequency(habit.frequency || 'daily');
         setPreferredTime(habit.preferredTime || '');
+      } else {
+        console.warn('⚠️ [HabitModal] Hábito não encontrado no array de hábitos');
       }
       setIsLoadingHabit(false);
     }
@@ -122,43 +129,51 @@ export const HabitModal: React.FC<HabitModalProps> = ({
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      'Deletar Hábito',
-      `Tem certeza que deseja deletar o hábito "${title}"? Esta ação não pode ser desfeita.`,
-      [
-        {
-          text: 'Cancelar',
-          onPress: () => {},
-          style: 'cancel',
-        },
-        {
-          text: 'Deletar',
-          onPress: async () => {
-            try {
-              if (habitId) {
-                await deleteHabit(habitId);
-                setToastMessage('✓ Hábito deletado com sucesso!');
-                setToastType('success');
-                setShowToast(true);
+    console.log('🗑️ [HabitModal] handleDelete chamado:', { habitId, title });
+    setShowDeleteConfirm(true);
+  };
 
-                setTimeout(() => {
-                  resetForm();
-                  onClose();
-                  onSuccess?.();
-                }, 500);
-              }
-            } catch (error) {
-              setToastMessage(
-                error instanceof Error ? error.message : 'Erro ao deletar hábito'
-              );
-              setToastType('error');
-              setShowToast(true);
-            }
-          },
-          style: 'destructive',
-        },
-      ]
-    );
+  const handleConfirmDelete = async () => {
+    console.log('⚠️ [HabitModal] Confirmando deleção do hábito:', habitId);
+    setIsDeleting(true);
+    
+    try {
+      if (habitId) {
+        console.log('📡 [HabitModal] Chamando deleteHabit do store');
+        await deleteHabit(habitId);
+        console.log('✅ [HabitModal] Deleção concluída');
+        
+        setToastMessage('✓ Hábito deletado com sucesso!');
+        setToastType('success');
+        setShowToast(true);
+        
+        // Fechar modal de confirmação
+        setShowDeleteConfirm(false);
+        
+        setTimeout(() => {
+          console.log('🔄 [HabitModal] Resetando formulário');
+          resetForm();
+          onClose();
+          onSuccess?.();
+          console.log('✅ [HabitModal] Tudo finalizado');
+        }, 500);
+      } else {
+        console.error('❌ [HabitModal] habitId inválido');
+      }
+    } catch (error) {
+      console.error('❌ [HabitModal] Erro:', error);
+      setToastMessage(
+        error instanceof Error ? error.message : 'Erro ao deletar hábito'
+      );
+      setToastType('error');
+      setShowToast(true);
+      setIsDeleting(false);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    console.log('❌ [HabitModal] Deleção cancelada pelo usuário');
+    setShowDeleteConfirm(false);
   };
 
   return (
@@ -338,6 +353,39 @@ export const HabitModal: React.FC<HabitModalProps> = ({
           </View>
         </View>
       </KeyboardAvoidingView>
+
+      {/* Modal de Confirmação de Deleção */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={showDeleteConfirm}
+        onRequestClose={handleCancelDelete}
+      >
+        <View style={styles.deleteConfirmOverlay}>
+          <View style={styles.deleteConfirmContainer}>
+            <Text style={styles.deleteConfirmTitle}>Deletar Hábito</Text>
+            <Text style={styles.deleteConfirmMessage}>
+              Tem certeza que deseja deletar o hábito "{title}"? Esta ação não pode ser desfeita.
+            </Text>
+            
+            <View style={styles.deleteConfirmButtons}>
+              <Button
+                title="Cancelar"
+                onPress={handleCancelDelete}
+                variant="secondary"
+                size="medium"
+                disabled={isDeleting}
+              />
+              <Button
+                title={isDeleting ? 'Deletando...' : 'Deletar'}
+                onPress={handleConfirmDelete}
+                disabled={isDeleting}
+                size="medium"
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </Modal>
   );
 };
@@ -523,6 +571,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   actionButtons: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  deleteConfirmOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteConfirmContainer: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 24,
+    marginHorizontal: 16,
+    minWidth: '80%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  deleteConfirmTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#ef4444',
+    marginBottom: 12,
+  },
+  deleteConfirmMessage: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#6b7280',
+    marginBottom: 24,
+    lineHeight: 20,
+  },
+  deleteConfirmButtons: {
     flexDirection: 'row',
     gap: 12,
   },

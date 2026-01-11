@@ -12,12 +12,14 @@ import { useHabitStore } from '../../store/habitStore';
 import { habitService, CheckInStats } from '../../services/habitService';
 import { shadows } from '../../styles/shadows';
 import { Button } from '../../components/Button';
+import { useI18n } from '../../i18n/useI18n';
 import dayjs from 'dayjs';
 
 export default function HabitDetailScreen({ route, navigation }: any) {
   const { habitId } = route.params;
   const { selectedHabit, getHabit, createCheckIn, isLoading } =
     useHabitStore();
+  const { t } = useI18n();
   const [stats, setStats] = React.useState<CheckInStats | null>(null);
   const [loading, setLoading] = React.useState(true);
 
@@ -33,10 +35,10 @@ export default function HabitDetailScreen({ route, navigation }: any) {
       setStats(habitStats);
     } catch (error) {
       Alert.alert(
-        'Erro',
+        t('ui.notifications.error'),
         error instanceof Error
           ? error.message
-          : 'Erro ao carregar dados'
+          : t('common.errors.internal_error')
       );
     } finally {
       setLoading(false);
@@ -46,7 +48,7 @@ export default function HabitDetailScreen({ route, navigation }: any) {
   const handleCheckIn = async (status: 'completed' | 'skipped') => {
     try {
       await createCheckIn(habitId, { status });
-      Alert.alert('Sucesso', `Check-in registrado como ${status}`);
+      Alert.alert(t('ui.notifications.success'), `Check-in registrado como ${status}`);
       await loadData();
     } catch (error) {
       Alert.alert(

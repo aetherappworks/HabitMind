@@ -61,7 +61,15 @@ class HabitService {
   }
 
   async deleteHabit(habitId: string): Promise<void> {
-    return apiClient.delete(`/habits/${habitId}`);
+    console.log('🚀 [habitService] deleteHabit - Enviando requisição:', habitId);
+    try {
+      const response = await apiClient.delete(`/habits/${habitId}`);
+      console.log('✅ [habitService] deleteHabit - Resposta recebida:', response);
+      return response;
+    } catch (error) {
+      console.error('❌ [habitService] deleteHabit - Erro:', error);
+      throw error;
+    }
   }
 
   async createCheckIn(

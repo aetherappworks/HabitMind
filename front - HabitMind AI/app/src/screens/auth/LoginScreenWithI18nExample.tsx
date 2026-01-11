@@ -9,17 +9,17 @@ import {
   TextInput,
 } from 'react-native';
 import { useAuthStore } from '../../store/authStore';
+import { useLanguageStore } from '../../store/languageStore';
 import { useI18n } from '../../i18n/useI18n';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '../../components/Button';
 
-export default function RegisterScreen() {
+export default function LoginScreenWithI18n() {
   const [email, setEmail] = React.useState('');
-  const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
   const [errors, setErrors] = React.useState<Record<string, string>>({});
-  const { register, isLoading } = useAuthStore();
+  const { login, isLoading } = useAuthStore();
+  const { language } = useLanguageStore();
   const { t } = useI18n();
   const navigation = useNavigation<any>();
 
@@ -27,28 +27,25 @@ export default function RegisterScreen() {
     const newErrors: Record<string, string> = {};
 
     if (!email) newErrors.email = t('auth.errors.email_required');
-    if (!name) newErrors.name = t('ui.labels.name');
     if (!password) newErrors.password = t('auth.errors.password_required');
-    if (!confirmPassword)
-      newErrors.confirmPassword = t('auth.errors.password_required');
-    if (password !== confirmPassword)
-      newErrors.confirmPassword = t('common.errors.bad_request');
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleRegister = async () => {
+  const handleLogin = async () => {
     if (!validateForm()) return;
 
     try {
-      await register(email, name, password);
+      await login(email, password);
+      Alert.alert(
+        t('ui.notifications.success'),
+        t('auth.messages.logged_in_successfully')
+      );
     } catch (error) {
       Alert.alert(
         t('ui.notifications.error'),
-        error instanceof Error
-          ? error.message
-          : t('common.errors.internal_error')
+        error instanceof Error ? error.message : t('common.errors.internal_error')
       );
     }
   };
@@ -57,35 +54,16 @@ export default function RegisterScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.header}>
-          <Button
-            title={t('ui.buttons.back')}
-            onPress={() => navigation.goBack()}
-            variant="secondary"
-            size="small"
-          />
-          <Text style={styles.title}>{t('ui.buttons.register')}</Text>
+          <Text style={styles.logo}>HabitMind AI</Text>
+          <Text style={styles.subtitle}>
+            {t('auth.messages.check_email')}
+          </Text>
+          <Text style={styles.languageIndicator}>
+            {language.toUpperCase()}
+          </Text>
         </View>
 
         <View style={styles.form}>
-          {/* Name Input */}
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>{t('ui.labels.name')}</Text>
-            <TextInput
-              style={[
-                styles.input,
-                errors.name && styles.inputError,
-              ]}
-              placeholder={t('ui.placeholders.email')}
-              placeholderTextColor="#d1d5db"
-              value={name}
-              onChangeText={setName}
-              editable={!isLoading}
-            />
-            {errors.name && (
-              <Text style={styles.errorText}>{errors.name}</Text>
-            )}
-          </View>
-
           {/* Email Input */}
           <View style={styles.inputGroup}>
             <Text style={styles.label}>{t('ui.labels.email')}</Text>
@@ -126,33 +104,18 @@ export default function RegisterScreen() {
             )}
           </View>
 
-          {/* Confirm Password Input */}
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>{t('ui.labels.password')}</Text>
-            <TextInput
-              style={[
-                styles.input,
-                errors.confirmPassword && styles.inputError,
-              ]}
-              placeholder={t('ui.placeholders.password')}
-              placeholderTextColor="#d1d5db"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              secureTextEntry
-              editable={!isLoading}
-            />
-            {errors.confirmPassword && (
-              <Text style={styles.errorText}>{errors.confirmPassword}</Text>
-            )}
-          </View>
-
-          {/* Register Button */}
+          {/* Login Button */}
           <Button
-            title={isLoading ? t('ui.buttons.loading') : t('ui.buttons.register')}
-            onPress={handleRegister}
+            title={isLoading ? t('ui.buttons.loading') : t('ui.buttons.login')}
+            onPress={handleLogin}
             disabled={isLoading}
-            size="large"
           />
+        </View>
+
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>
+            {t('auth.messages.registered_successfully')}
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -162,50 +125,67 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: '#fff',
   },
   content: {
     flexGrow: 1,
-    padding: 24,
+    paddingHorizontal: 20,
+    paddingVertical: 32,
   },
   header: {
-    marginBottom: 32,
+    marginBottom: 48,
+    alignItems: 'center',
   },
-  title: {
-    fontSize: 24,
+  logo: {
+    fontSize: 32,
     fontWeight: '700',
-    color: '#1f2937',
-    marginTop: 16,
+    color: '#111',
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 8,
+  },
+  languageIndicator: {
+    fontSize: 12,
+    color: '#999',
   },
   form: {
-    gap: 16,
+    marginBottom: 24,
   },
   inputGroup: {
-    marginBottom: 4,
+    marginBottom: 16,
   },
   label: {
     fontSize: 14,
-    fontWeight: '500',
-    color: '#374151',
+    fontWeight: '600',
+    color: '#111',
     marginBottom: 8,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: '#e5e5e5',
     borderRadius: 8,
-    paddingHorizontal: 12,
     paddingVertical: 12,
-    backgroundColor: '#ffffff',
-    fontSize: 14,
-    color: '#1f2937',
+    paddingHorizontal: 16,
+    fontSize: 16,
+    backgroundColor: '#f9f9f9',
   },
   inputError: {
     borderColor: '#ef4444',
-    backgroundColor: '#fef2f2',
+    backgroundColor: '#fee2e2',
   },
   errorText: {
+    color: '#dc2626',
     fontSize: 12,
-    color: '#ef4444',
     marginTop: 4,
+  },
+  footer: {
+    alignItems: 'center',
+  },
+  footerText: {
+    fontSize: 14,
+    color: '#666',
   },
 });

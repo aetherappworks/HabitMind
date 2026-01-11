@@ -57,7 +57,6 @@ export const HabitCard: React.FC<HabitCardProps> = ({
   React.useEffect(() => {
     const color = getBackgroundColor();
     const borderColor = getStatusColor();
-    console.log(`CARD: ${habit.title} - completedToday: ${completedToday}, skippedToday: ${skippedToday} → Color: ${color}, Border: ${borderColor}`);
   }, [completedToday, skippedToday]);
 
   return (

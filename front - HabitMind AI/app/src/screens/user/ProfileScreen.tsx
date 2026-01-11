@@ -9,22 +9,24 @@ import {
   Alert,
 } from 'react-native';
 import { useAuthStore } from '../../store/authStore';
+import { useI18n } from '../../i18n/useI18n';
 import { authService, UserCredits } from '../../services/authService';
 import { shadows } from '../../styles/shadows';
 import { Button } from '../../components/Button';
 
 export default function ProfileScreen({ navigation }: any) {
   const { user, logout } = useAuthStore();
+  const { t } = useI18n();
   const [loading, setLoading] = React.useState(false);
 
   const handleLogout = () => {
     Alert.alert(
-      'Logout',
-      'Tem certeza que deseja sair?',
+      t('ui.notifications.logout'),
+      t('common.messages.confirm_logout'),
       [
-        { text: 'Cancelar', onPress: () => {}, style: 'cancel' },
+        { text: t('ui.buttons.cancel'), onPress: () => {}, style: 'cancel' },
         {
-          text: 'Sair',
+          text: t('ui.buttons.logout'),
           onPress: async () => {
             await logout();
           },
@@ -38,7 +40,7 @@ export default function ProfileScreen({ navigation }: any) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.centerContent}>
-          <Text style={styles.errorText}>Usuário não encontrado</Text>
+          <Text style={styles.errorText}>{t('common.errors.user_not_found')}</Text>
         </View>
       </SafeAreaView>
     );

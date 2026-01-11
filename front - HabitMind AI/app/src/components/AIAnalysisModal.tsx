@@ -53,7 +53,6 @@ export const AIAnalysisModal: React.FC<AIAnalysisModalProps> = ({
 
   const performAnalysis = async () => {
     try {
-      console.log('🔍 [AIAnalysisModal] Iniciando análise...', { habitId, habitTitle });
       clearError();
       
       const payload = {
@@ -61,18 +60,14 @@ export const AIAnalysisModal: React.FC<AIAnalysisModalProps> = ({
         type: 'pattern_analysis',
         context: habitTitle,
       };
-      console.log('📤 [AIAnalysisModal] Payload enviado:', payload);
       
       await analyzeHabit(payload);
-      
-      console.log('✅ [AIAnalysisModal] Análise concluída com sucesso');
       
       // Atualizar créditos imediatamente após análise
       try {
         await loadCredits();
-        console.log('💳 [AIAnalysisModal] Créditos atualizados na home');
       } catch (err) {
-        console.warn('⚠️ [AIAnalysisModal] Erro ao atualizar créditos:', err);
+        // Erro silencioso ao atualizar créditos
       }
       
       setToastMessage('✓ Análise de IA realizada com sucesso!');

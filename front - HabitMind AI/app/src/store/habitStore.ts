@@ -91,16 +91,26 @@ export const useHabitStore = create<HabitState>((set) => ({
   },
 
   deleteHabit: async (habitId: string) => {
+    console.log('🗑️ [habitStore] deleteHabit iniciado:', habitId);
     set({ isLoading: true, error: null });
     try {
+      console.log('📡 [habitStore] Chamando habitService.deleteHabit...');
       await habitService.deleteHabit(habitId);
-      set((state) => ({
-        habits: state.habits.filter((h) => h.id !== habitId),
-        selectedHabit:
-          state.selectedHabit?.id === habitId ? null : state.selectedHabit,
-        isLoading: false,
-      }));
+      console.log('✅ [habitStore] Hábito deletado da API');
+      
+      set((state) => {
+        const filteredHabits = state.habits.filter((h) => h.id !== habitId);
+        console.log('🔄 [habitStore] State atualizado. Hábitos restantes:', filteredHabits.length);
+        return {
+          habits: filteredHabits,
+          selectedHabit:
+            state.selectedHabit?.id === habitId ? null : state.selectedHabit,
+          isLoading: false,
+        };
+      });
+      console.log('✅ [habitStore] State sincronizado');
     } catch (error) {
+      console.error('❌ [habitStore] Erro ao deletar:', error);
       const message =
         error instanceof Error ? error.message : 'Failed to delete habit';
       set({ error: message, isLoading: false });

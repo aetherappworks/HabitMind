@@ -11,6 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '../../utils/useFocusEffect';
 import { useAIStore } from '../../store/aiStore';
+import { useI18n } from '../../i18n/useI18n';
 import { shadows } from '../../styles/shadows';
 import { Button } from '../../components/Button';
 import { Toast } from '../../components/Toast';
@@ -29,6 +30,7 @@ export const InsightsScreen: React.FC<InsightsModalProps> = ({ visible, onClose 
     getInsights,
     clearError,
   } = useAIStore();
+  const { t } = useI18n();
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -46,7 +48,7 @@ export const InsightsScreen: React.FC<InsightsModalProps> = ({ visible, onClose 
       clearError();
       setInsightType(type);
       await getInsights(type);
-      setToastMessage('✓ Insights carregados com sucesso!');
+      setToastMessage(t('ai.messages.insights_loaded'));
       setToastType('success');
       setShowToast(true);
     } catch (err) {
@@ -113,10 +115,10 @@ export const InsightsScreen: React.FC<InsightsModalProps> = ({ visible, onClose 
           </View>
         ) : error ? (
           <View style={styles.centerContent}>
-            <Text style={styles.errorTitle}>❌ Erro ao carregar insights</Text>
+            <Text style={styles.errorTitle}>❌ {t('common.errors.error_loading')}</Text>
             <Text style={styles.errorMessage}>{error}</Text>
             <Button
-              title="Tentar Novamente"
+              title={t('ui.buttons.try_again')}
               onPress={() => loadInsights(insightType)}
               size="medium"
             />
@@ -204,7 +206,7 @@ export const InsightsScreen: React.FC<InsightsModalProps> = ({ visible, onClose 
         {/* Action Button */}
         <View style={{ marginTop: 16 }}>
           <Button
-            title="Fechar"
+            title={t('ui.buttons.close')}
             onPress={onClose}
             variant="secondary"
             size="large"

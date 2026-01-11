@@ -67,13 +67,10 @@ export interface SuggestionsResponse {
 class AIService {
   // Analisar um hábito específico (3 créditos)
   async analyzeHabit(request: AnalyzeHabitRequest): Promise<AnalyzeResponse> {
-    console.log('🚀 [aiService] analyzeHabit - Enviando requisição:', request);
     try {
       const response = await apiClient.post('/ai/analyze', request);
-      console.log('📨 [aiService] analyzeHabit - Resposta recebida:', response);
       return response;
     } catch (error) {
-      console.error('❌ [aiService] analyzeHabit - Erro na requisição:', error);
       throw error;
     }
   }
@@ -87,26 +84,20 @@ class AIService {
 
   // Obter sugestões de novos hábitos baseadas nos hábitos atuais
   async getSuggestedHabits(): Promise<SuggestionsResponse> {
-    console.log('🚀 [aiService] getSuggestedHabits - Buscando sugestões');
     try {
       const response = await apiClient.get('/ai/insights');
-      console.log('📨 [aiService] getSuggestedHabits - Sugestões recebidas:', response);
       return response;
     } catch (error) {
-      console.error('❌ [aiService] getSuggestedHabits - Erro:', error);
       throw error;
     }
   }
 
   // Obter uma única sugestão de hábito (custa 2 créditos)
   async getSingleHabitSuggestion(): Promise<SuggestionsResponse> {
-    console.log('🚀 [aiService] getSingleHabitSuggestion - Gerando sugestão');
     try {
       const response = await apiClient.get('/ai/suggest');
-      console.log('📨 [aiService] getSingleHabitSuggestion - Sugestão recebida:', response);
       return response;
     } catch (error) {
-      console.error('❌ [aiService] getSingleHabitSuggestion - Erro:', error);
       throw error;
     }
   }

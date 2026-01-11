@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useAuthStore } from '../store/authStore';
+import { useNotifications } from '../hooks/useNotifications';
+import { useNotificationNavigation } from '../hooks/useNotificationNavigation';
 import { Ionicons } from '@expo/vector-icons';
 
 // Screens
@@ -102,8 +104,20 @@ function AppTabs() {
   );
 }
 
+function NavigatorContent() {
+  const { isAuthenticated } = useAuthStore();
+  const { handleNotificationTapped } = useNotificationNavigation();
+
+  // Inicializar notificações push (dentro do NavigationContainer)
+  useNotifications({
+    onNotificationTapped: handleNotificationTapped,
+  });
+
+  return isAuthenticated ? <AppTabs /> : <AuthStack />;
+}
+
 export default function RootNavigator() {
-  const { isAuthenticated, isLoading, checkAuthStatus } = useAuthStore();
+  const { isLoading, checkAuthStatus } = useAuthStore();
 
   useEffect(() => {
     checkAuthStatus();
@@ -115,7 +129,7 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer>
-      {isAuthenticated ? <AppTabs /> : <AuthStack />}
+      <NavigatorContent />
     </NavigationContainer>
   );
 }
