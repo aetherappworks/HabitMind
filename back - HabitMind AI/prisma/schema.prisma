@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// User Model
+// ============================================
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String
+  passwordHash String
+  planType  String     @default("free") // "free" | "premium"
+  availableCredits Int @default(10)
+  totalCredits     Int @default(10)
+  lastCreditRefillAt DateTime?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  // Relations
+  habits    Habit[]
+  aiInsights AIInsight[]
+  adViews   AdView[]
+
+  @@map("users")
+}
+
+// ============================================
+// Habit Model
+// ============================================
+model Habit {
+  id            String     @id @default(cuid())
+  userId        String
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  title         String
+  description   String?
+  frequency     String     // "daily" | "weekly" | "custom"
+  preferredTime String?    // "07:00" format
+  isActive      Boolean    @default(true)
+  
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Relations
+  habitLogs     HabitLog[]
+  aiInsights    AIInsight[]
+
+  @@map("habits")
+  @@index([userId])
+}
+
+// ============================================
+// Habit Log (Check-in)
+// ============================================
+model HabitLog {
+  id        String     @id @default(cuid())
+  habitId   String
+  habit     Habit      @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  
+  date      DateTime   @db.Date
+  status    String     @default("pending") // "completed" | "pending" | "skipped"
+  notes     String?
+  
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("habit_logs")
+  @@index([habitId])
+  @@index([date])
+}
+
+// ============================================
+// AI Insight
+// ============================================
+model AIInsight {
+  id              String     @id @default(cuid())
+  userId          String
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  habitId         String?
+  habit           Habit?     @relation(fields: [habitId], references: [id], onDelete: SetNull)
+  
+  type            String     // "pattern_analysis" | "time_suggestion" | "encouragement" | "adjustment"
+  content         String     @db.Text
+  confidenceScore Float      @default(0.8) // 0.0 to 1.0
+  
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("ai_insights")
+  @@index([userId])
+  @@index([habitId])
+}
+
+// ============================================
+// Ad View (Anúncios visualizados)
+// ============================================
+model AdView {
+  id              String     @id @default(cuid())
+  userId          String
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  adType          String     // "banner" | "interstitial" | "rewarded"
+  adId            String
+  viewedAt        DateTime   @default(now())
+  rewardClaimed   Boolean    @default(false)
+  rewardAmount    Int        @default(0)
+  validationToken String?
+  
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("ad_views")
+  @@index([userId])
+  @@index([viewedAt])
+  @@index([adType])
+}
+
+// ============================================
+// Ad Configuration
+// ============================================
+model AdConfig {
+  id              String     @id @default(cuid())
+  
+  adType          String     @unique // "banner" | "interstitial" | "rewarded"
+  isEnabled       Boolean    @default(true)
+  rewardAmount    Int        // Créditos oferecidos
+  dailyLimit      Int        // Máximo de ads por dia
+  
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("ad_configs")
+}

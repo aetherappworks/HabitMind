@@ -1,0 +1,65 @@
+��� HabitMind AI — Estrutura de Documentação
+============================================
+
+docs/
+├── INDEX.md                           # ��� COMECE AQUI - Índice completo
+│
+├── ��� planning/                       # Planejamento e roadmap
+│   ├── PRD.md                         # Product Requirements Document
+│   ├── README_CRONOGRAMA.md           # Cronograma de fases (0-6)
+│   ├── rate-limit-monetization.md     # Estratégia de monetização
+│   └── PHASE_0_CHECKLIST.md           # Checklist da Phase 0
+│
+├── ��� setup/                          # Como começar
+│   ├── QUICK_START.md                 # 5 minutos para rodar
+│   └── SETUP_COMPLETE.md              # Setup detalhado
+│
+├── ���️ architecture/                   # Estrutura técnica
+│   ├── ARCHITECTURE.md                # Módulos e estrutura
+│   ├── README_BACKEND.md              # Guia técnico
+│   └── IMPLEMENTATION_SUMMARY.md      # O que foi implementado
+│
+├── ��� api/                            # Referência de endpoints
+│   └── API_REFERENCE.md               # Todos os endpoints documentados
+│
+├── ��� frontend/                       # Integração frontend
+│   ├── FRONTEND_GUIDE.md              # Guia completo (tipos, hooks, exemplos)
+│   └── FRONTEND_DELIVERABLES.md       # O que entregar
+│
+├── ��� billing/                        # Monetização
+│   ├── RATE_LIMIT_IMPLEMENTATION.md   # Rate limiting
+│   └── CREDITS_SYSTEM_IMPLEMENTATION.md # Sistema de créditos
+│
+└── implementation/                    # (vazio - próximas fases)
+
+
+��� Guias por Perfil
+===================
+
+���‍��� Product Managers
+   → docs/planning/PRD.md
+   → docs/planning/README_CRONOGRAMA.md
+   → docs/planning/rate-limit-monetization.md
+
+���‍��� Developers Backend
+   → docs/setup/QUICK_START.md
+   → docs/architecture/ARCHITECTURE.md
+   → docs/architecture/README_BACKEND.md
+   → docs/billing/CREDITS_SYSTEM_IMPLEMENTATION.md
+
+���‍��� Developers Frontend
+   → docs/setup/QUICK_START.md
+   → docs/frontend/FRONTEND_GUIDE.md
+   → docs/api/API_REFERENCE.md
+
+��� DevOps/Cloud
+   → docs/setup/SETUP_COMPLETE.md
+   → docs/architecture/ARCHITECTURE.md
+
+
+��� Total de Documentos
+======================
+✓ 15 arquivos Markdown
+✓ 8 subpastas lógicas
+✓ ~8000+ linhas de documentação
+✓ Cobertura completa: Planejamento → Setup → Arquitetura → API → Frontend → Billing

@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: habitsmind_user
+      POSTGRES_PASSWORD: habitsmind_password_dev
+      POSTGRES_DB: habitsmind_ai
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U habitsmind_user -d habitsmind_ai"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # NestJS Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://habitsmind_user:habitsmind_password_dev@postgres:5432/habitsmind_ai
+      JWT_SECRET: dev-secret-key-change-in-production
+      JWT_EXPIRATION: 7d
+      NODE_ENV: development
+      PORT: 3000
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run start:dev
+
+volumes:
+  postgres_data:

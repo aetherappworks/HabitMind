@@ -1,0 +1,88 @@
+{
+  "auth": {
+    "errors": {
+      "user_already_exists": "El usuario ya existe",
+      "invalid_credentials": "Email o contraseña inválido",
+      "user_not_found": "Usuario no encontrado",
+      "weak_password": "La contraseña es muy débil. Mínimo 8 caracteres",
+      "invalid_email": "Email inválido",
+      "email_required": "El email es obligatorio",
+      "password_required": "La contraseña es obligatoria"
+    },
+    "messages": {
+      "registered_successfully": "Registrado exitosamente",
+      "logged_in_successfully": "Conectado exitosamente",
+      "check_email": "Revise su email para continuar"
+    }
+  },
+  "habits": {
+    "errors": {
+      "habit_not_found": "Hábito no encontrado",
+      "invalid_habit_data": "Datos del hábito inválidos",
+      "habit_already_exists": "Este hábito ya existe",
+      "habit_name_required": "El nombre del hábito es obligatorio",
+      "invalid_frequency": "Frecuencia inválida"
+    },
+    "messages": {
+      "habit_created": "Hábito creado exitosamente",
+      "habit_updated": "Hábito actualizado exitosamente",
+      "habit_deleted": "Hábito eliminado exitosamente",
+      "checkin_created": "Check-in registrado exitosamente"
+    }
+  },
+  "users": {
+    "errors": {
+      "user_not_found": "Usuario no encontrado",
+      "invalid_user_data": "Datos del usuario inválidos",
+      "profile_update_failed": "Error al actualizar perfil"
+    },
+    "messages": {
+      "profile_updated": "Perfil actualizado exitosamente",
+      "preferences_updated": "Preferencias actualizadas exitosamente"
+    }
+  },
+  "ai": {
+    "errors": {
+      "analysis_failed": "Error al analizar hábito",
+      "insufficient_data": "Datos insuficientes para análisis",
+      "insufficient_credits": "Créditos insuficientes para análisis. Mire anuncios o actualice"
+    },
+    "messages": {
+      "analysis_completed": "Análisis completado exitosamente",
+      "insights_generated": "Insights generados exitosamente"
+    }
+  },
+  "ads": {
+    "errors": {
+      "ad_type_not_enabled": "Este tipo de anuncio no está disponible",
+      "daily_limit_reached": "Límite diario de anuncios alcanzado",
+      "ad_view_not_found": "Visualización de anuncio no encontrada",
+      "unauthorized_ad_claim": "No autorizado para reclamar este anuncio",
+      "reward_already_claimed": "Recompensa ya reclamada",
+      "invalid_token": "Token de anuncio inválido",
+      "ad_config_not_found": "Configuración de anuncio no encontrada"
+    },
+    "messages": {
+      "ad_view_recorded": "Anuncio registrado exitosamente",
+      "reward_granted": "Recompensa otorgada exitosamente",
+      "reward_validation_failed": "Error al validar recompensa"
+    }
+  },
+  "common": {
+    "errors": {
+      "unauthorized": "No autorizado",
+      "forbidden": "Acceso prohibido",
+      "internal_error": "Error interno del servidor",
+      "bad_request": "Solicitud inválida",
+      "not_found": "Recurso no encontrado",
+      "rate_limit_exceeded": "Límite de solicitudes excedido",
+      "invalid_token": "Token inválido o expirado"
+    },
+    "messages": {
+      "success": "Operación completada exitosamente",
+      "created": "Creado exitosamente",
+      "updated": "Actualizado exitosamente",
+      "deleted": "Eliminado exitosamente"
+    }
+  }
+}

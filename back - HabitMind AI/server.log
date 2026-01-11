@@ -1,0 +1,42 @@
+
+> habitsmind-ai@0.0.1 start:prod
+> node dist/main
+
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +22ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCommonModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mI18nCustomModule dependencies initialized[39m[38;5;3m +6ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mI18nModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mHabitsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAiModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +41ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/health, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/register, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUsersController {/users}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/me, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/me, PUT} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHabitsController {/habits}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/habits, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/habits, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/habits/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/habits/:id, PUT} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/habits/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/habits/:id/checkins, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/habits/:id/checkins, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/habits/:id/checkins/range, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAiController {/ai}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/ai/analyze, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/ai/insights, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 7304  - [39m07/01/2026, 16:57:09 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +59ms[39m
+🚀 Application is running on: http://localhost:3000
+📚 Swagger documentation: http://localhost:3000/api/docs

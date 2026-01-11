@@ -1,0 +1,14 @@
+.env
+.env.local
+.env.*.local
+dist/
+node_modules/
+.git/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+coverage/
+.prisma/

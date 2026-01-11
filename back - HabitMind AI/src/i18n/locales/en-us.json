@@ -1,0 +1,88 @@
+{
+  "auth": {
+    "errors": {
+      "user_already_exists": "User already exists",
+      "invalid_credentials": "Invalid email or password",
+      "user_not_found": "User not found",
+      "weak_password": "Password is too weak. Minimum 8 characters",
+      "invalid_email": "Invalid email address",
+      "email_required": "Email is required",
+      "password_required": "Password is required"
+    },
+    "messages": {
+      "registered_successfully": "Registered successfully",
+      "logged_in_successfully": "Logged in successfully",
+      "check_email": "Check your email to continue"
+    }
+  },
+  "habits": {
+    "errors": {
+      "habit_not_found": "Habit not found",
+      "invalid_habit_data": "Invalid habit data",
+      "habit_already_exists": "This habit already exists",
+      "habit_name_required": "Habit name is required",
+      "invalid_frequency": "Invalid frequency"
+    },
+    "messages": {
+      "habit_created": "Habit created successfully",
+      "habit_updated": "Habit updated successfully",
+      "habit_deleted": "Habit deleted successfully",
+      "checkin_created": "Check-in recorded successfully"
+    }
+  },
+  "users": {
+    "errors": {
+      "user_not_found": "User not found",
+      "invalid_user_data": "Invalid user data",
+      "profile_update_failed": "Failed to update profile"
+    },
+    "messages": {
+      "profile_updated": "Profile updated successfully",
+      "preferences_updated": "Preferences updated successfully"
+    }
+  },
+  "ai": {
+    "errors": {
+      "analysis_failed": "Failed to analyze habit",
+      "insufficient_data": "Insufficient data for analysis",
+      "insufficient_credits": "Insufficient credits for analysis. Watch ads or upgrade"
+    },
+    "messages": {
+      "analysis_completed": "Analysis completed successfully",
+      "insights_generated": "Insights generated successfully"
+    }
+  },
+  "ads": {
+    "errors": {
+      "ad_type_not_enabled": "This ad type is not available",
+      "daily_limit_reached": "Daily ad limit reached",
+      "ad_view_not_found": "Ad view not found",
+      "unauthorized_ad_claim": "Not authorized to claim this ad",
+      "reward_already_claimed": "Reward already claimed",
+      "invalid_token": "Invalid ad token",
+      "ad_config_not_found": "Ad configuration not found"
+    },
+    "messages": {
+      "ad_view_recorded": "Ad recorded successfully",
+      "reward_granted": "Reward granted successfully",
+      "reward_validation_failed": "Failed to validate reward"
+    }
+  },
+  "common": {
+    "errors": {
+      "unauthorized": "Unauthorized",
+      "forbidden": "Forbidden",
+      "internal_error": "Internal server error",
+      "bad_request": "Bad request",
+      "not_found": "Resource not found",
+      "rate_limit_exceeded": "Rate limit exceeded",
+      "invalid_token": "Token invalid or expired"
+    },
+    "messages": {
+      "success": "Operation completed successfully",
+      "created": "Created successfully",
+      "updated": "Updated successfully",
+      "deleted": "Deleted successfully"
+    }
+  }
+}
