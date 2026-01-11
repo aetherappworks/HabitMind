@@ -91,6 +91,9 @@ model AIInsight {
   
   type            String     // "pattern_analysis" | "time_suggestion" | "encouragement" | "adjustment"
   content         String     @db.Text
+  impact          String?    @db.Text
+  recommendations String[]   @default([])  // JSON array
+  insights        String[]   @default([])  // JSON array
   confidenceScore Float      @default(0.8) // 0.0 to 1.0
   
   createdAt       DateTime   @default(now())

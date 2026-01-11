@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useAIStore } from '../store/aiStore';
+import { useAuthStore } from '../store/authStore';
 import { Toast } from './Toast';
 
 interface AIAnalysisModalProps {
@@ -37,13 +38,18 @@ export const AIAnalysisModal: React.FC<AIAnalysisModalProps> = ({
     creditsRemaining,
     analyzeHabit,
     clearError,
+    reset,
   } = useAIStore();
 
+  const { loadCredits } = useAuthStore();
+
   useEffect(() => {
-    if (visible && !currentAnalysis) {
+    if (visible) {
       performAnalysis();
+    } else {
+      reset();
     }
-  }, [visible]);
+  }, [visible, habitId]);
 
   const performAnalysis = async () => {
     try {
@@ -60,6 +66,15 @@ export const AIAnalysisModal: React.FC<AIAnalysisModalProps> = ({
       await analyzeHabit(payload);
       
       console.log('✅ [AIAnalysisModal] Análise concluída com sucesso');
+      
+      // Atualizar créditos imediatamente após análise
+      try {
+        await loadCredits();
+        console.log('💳 [AIAnalysisModal] Créditos atualizados na home');
+      } catch (err) {
+        console.warn('⚠️ [AIAnalysisModal] Erro ao atualizar créditos:', err);
+      }
+      
       setToastMessage('✓ Análise de IA realizada com sucesso!');
       setToastType('success');
       setShowToast(true);
@@ -92,7 +107,7 @@ export const AIAnalysisModal: React.FC<AIAnalysisModalProps> = ({
         message={toastMessage}
         type={toastType}
         visible={showToast}
-        duration={1500}
+        duration={500}
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -136,17 +151,14 @@ export const AIAnalysisModal: React.FC<AIAnalysisModalProps> = ({
               {/* Habit Title */}
               <View style={styles.habitHeader}>
                 <Text style={styles.habitTitle}>{habitTitle}</Text>
-                <View style={styles.scoreContainer}>
-                  <Text style={styles.scoreLabel}>Confiança</Text>
-                  <Text style={styles.scoreValue}>
-                    {Math.round(currentAnalysis.confidenceScore * 100)}%
-                  </Text>
-                </View>
               </View>
 
               {/* Analysis Section */}
               <View style={styles.section}>
-                <Text style={styles.sectionTitle}>📊 Análise de Padrões</Text>
+                <View style={styles.blockHeader}>
+                  <Text style={styles.blockIcon}>📊</Text>
+                  <Text style={styles.sectionTitle}>Análise de Padrões</Text>
+                </View>
                 <View style={styles.analysisBox}>
                   <Text style={styles.analysisText}>
                     {currentAnalysis.content}
@@ -154,20 +166,41 @@ export const AIAnalysisModal: React.FC<AIAnalysisModalProps> = ({
                 </View>
               </View>
 
-              {/* Type Badge */}
-              <View style={styles.section}>
-                <View style={styles.typeBadge}>
-                  <Text style={styles.typeBadgeText}>
-                    Tipo: {currentAnalysis.type.replace('_', ' ').toUpperCase()}
+              {/* Impact Section */}
+              {currentAnalysis.impact && (
+                <View style={styles.impactSection}>
+                  <Text style={styles.impactTitle}>💡 Impacto na Sua Vida</Text>
+                  <Text style={styles.impactContent}>
+                    {currentAnalysis.impact}
                   </Text>
                 </View>
-              </View>
+              )}
 
-              {/* Credits Info */}
-              <View style={styles.creditsInfo}>
-                <Text style={styles.creditsLabel}>💳 Créditos Restantes:</Text>
-                <Text style={styles.creditsValue}>{creditsRemaining}</Text>
-              </View>
+              {/* Recommendations */}
+              {currentAnalysis.recommendations && currentAnalysis.recommendations.length > 0 && (
+                <View style={styles.section}>
+                  <Text style={styles.sectionTitle}>🎯 Recomendações</Text>
+                  {currentAnalysis.recommendations.map((rec: string, idx: number) => (
+                    <View key={idx} style={styles.recommendationItem}>
+                      <Text style={styles.recommendationBullet}>•</Text>
+                      <Text style={styles.recommendationText}>{rec}</Text>
+                    </View>
+                  ))}
+                </View>
+              )}
+
+              {/* Insights */}
+              {currentAnalysis.insights && currentAnalysis.insights.length > 0 && (
+                <View style={styles.section}>
+                  <Text style={styles.sectionTitle}>🔍 Descobertas</Text>
+                  {currentAnalysis.insights.map((insight: string, idx: number) => (
+                    <View key={idx} style={styles.insightItem}>
+                      <Text style={styles.insightIcon}>→</Text>
+                      <Text style={styles.insightText}>{insight}</Text>
+                    </View>
+                  ))}
+                </View>
+              )}
             </ScrollView>
           ) : (
             <View style={styles.centerContent}>
@@ -285,23 +318,6 @@ const styles = StyleSheet.create({
     color: '#1f2937',
     flex: 1,
   },
-  scoreContainer: {
-    backgroundColor: '#dbeafe',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  scoreLabel: {
-    fontSize: 11,
-    color: '#0369a1',
-    fontWeight: '600',
-  },
-  scoreValue: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#0369a1',
-  },
   motivationalCard: {
     backgroundColor: '#fef3c7',
     borderRadius: 12,
@@ -312,6 +328,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  blockHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  blockIcon: {
+    fontSize: 24,
+    marginRight: 8,
+  },
   motivationalEmoji: {
     fontSize: 28,
     marginRight: 12,
@@ -321,6 +346,63 @@ const styles = StyleSheet.create({
     color: '#92400e',
     fontWeight: '500',
     flex: 1,
+  },
+  impactSection: {
+    backgroundColor: '#fef3c7',
+    borderLeftWidth: 4,
+    borderLeftColor: '#f59e0b',
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 20,
+  },
+  impactTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#92400e',
+    marginBottom: 8,
+  },
+  impactContent: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#78350f',
+  },
+  recommendationItem: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    backgroundColor: '#f0fdf4',
+    borderRadius: 8,
+    padding: 12,
+  },
+  recommendationBullet: {
+    color: '#10b981',
+    fontWeight: '700',
+    marginRight: 8,
+    fontSize: 16,
+  },
+  recommendationText: {
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#047857',
+  },
+  insightItem: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    backgroundColor: '#eef2ff',
+    borderRadius: 8,
+    padding: 12,
+  },
+  insightIcon: {
+    color: '#6366f1',
+    fontWeight: '700',
+    marginRight: 8,
+    fontSize: 14,
+  },
+  insightText: {
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#4338ca',
   },
   section: {
     marginBottom: 20,
@@ -406,26 +488,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#1f2937',
     lineHeight: 18,
-  },
-  creditsInfo: {
-    backgroundColor: '#f3f4f6',
-    borderRadius: 10,
-    padding: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  creditsLabel: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#6b7280',
-  },
-  creditsValue: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#6366f1',
   },
   footer: {
     paddingHorizontal: 16,

@@ -65,7 +65,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({
       setShowToast(true);
       setTimeout(() => {
         onClose();
-      }, 1500);
+      }, 500);
     } catch (error) {
       setToastMessage(
         error instanceof Error ? error.message : 'Erro ao completar hábito'
@@ -93,7 +93,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({
       setShowToast(true);
       setTimeout(() => {
         onClose();
-      }, 1500);
+      }, 500);
     } catch (error) {
       setToastMessage(
         error instanceof Error ? error.message : 'Erro ao pular hábito'
@@ -116,7 +116,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({
         message={toastMessage}
         type={toastType}
         visible={showToast}
-        duration={1500}
+        duration={500}
       />
       <View style={styles.overlay}>
         <View style={styles.container}>

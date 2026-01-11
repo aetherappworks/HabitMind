@@ -65,17 +65,6 @@ export default function ProfileScreen({ navigation }: any) {
           </View>
         </View>
 
-        {/* Actions */}
-        <View style={styles.actionsSection}>
-          <Text style={styles.sectionTitle}>Opções</Text>
-          <Button
-            title="Ver Créditos"
-            onPress={() => navigation.navigate('Credits')}
-            icon="wallet"
-            size="large"
-          />
-        </View>
-
         {/* Account Info */}
         <View style={styles.infoSection}>
           <Text style={styles.sectionTitle}>Informações da Conta</Text>
@@ -176,9 +165,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#1f2937',
     marginBottom: 12,
-  },
-  actionsSection: {
-    marginBottom: 24,
   },
   infoSection: {
     marginBottom: 24,

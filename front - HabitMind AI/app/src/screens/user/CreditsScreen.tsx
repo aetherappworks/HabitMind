@@ -10,12 +10,33 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import { useCreditStore } from '../../store/creditStore';
 import { shadows } from '../../styles/shadows';
 import { Button } from '../../components/Button';
 import { Toast } from '../../components/Toast';
 
 export default function CreditsScreen({ navigation }: any) {
+  // Configure header to go back to Dashboard instead of Profile
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => {
+            // Navigate to HabitsTab first
+            navigation.navigate('HabitsTab' as any);
+            setTimeout(() => {
+              navigation.navigate('Dashboard');
+            }, 100);
+          }}
+          style={{ paddingLeft: 16 }}
+        >
+          <Ionicons name="chevron-back" size={28} color="#6366f1" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+
   const {
     credits,
     reloadInfo,
@@ -155,7 +176,7 @@ export default function CreditsScreen({ navigation }: any) {
         message={toastMessage}
         type={toastType}
         visible={showToast}
-        duration={1500}
+        duration={500}
       />
 
       <ScrollView contentContainerStyle={styles.content}>

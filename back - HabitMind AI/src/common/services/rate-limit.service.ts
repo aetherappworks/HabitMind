@@ -6,10 +6,12 @@ import { PrismaService } from '../../prisma/prisma.service';
  * Pesos de crédito por tipo de endpoint
  * Análise profunda = 3 créditos
  * Insights rápidos = 1 crédito
+ * Sugestão de hábito = 2 créditos
  */
 export enum CreditCost {
   ANALYZE_HABIT = 3, // POST /ai/analyze - Análise profunda
   GET_INSIGHTS = 1,  // GET /ai/insights - Insights rápidos
+  GET_HABIT_SUGGESTION = 2, // GET /ai/insights/suggest - Uma sugestão de novo hábito
 }
 
 interface ResetConfig {

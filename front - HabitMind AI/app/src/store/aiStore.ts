@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { aiService, HabitAnalysis, InsightData, AnalyzeHabitRequest } from '../services/aiService';
+import { aiService, HabitAnalysis, InsightData, AnalyzeHabitRequest, HabitSuggestion, SuggestionsResponse } from '../services/aiService';
 
 interface AIState {
   // Analysis state
@@ -10,10 +10,14 @@ interface AIState {
   // Insights state
   currentInsights: InsightData | null;
   
+  // Suggestions state
+  suggestedHabits: HabitSuggestion[];
+  
   // Loading states
   isLoading: boolean;
   isAnalyzing: boolean;
   isLoadingInsights: boolean;
+  isLoadingSuggestions: boolean;
   
   // Error state
   error: string | null;
@@ -25,6 +29,8 @@ interface AIState {
   // Actions
   analyzeHabit: (request: AnalyzeHabitRequest) => Promise<void>;
   getInsights: (type?: 'daily' | 'weekly' | 'monthly') => Promise<void>;
+  getSuggestedHabits: () => Promise<void>;
+  getSingleHabitSuggestion: () => Promise<void>;
   getAnalysisHistory: (limit?: number) => Promise<void>;
   getHabitAnalysis: (habitId: string) => Promise<void>;
   favoriteAnalysis: (analysisId: string) => Promise<void>;
@@ -43,9 +49,11 @@ export const useAIStore = create<AIState>((set, get) => ({
   analysisHistory: [],
   favoriteAnalyses: [],
   currentInsights: null,
+  suggestedHabits: [],
   isLoading: false,
   isAnalyzing: false,
   isLoadingInsights: false,
+  isLoadingSuggestions: false,
   error: null,
   creditsUsed: 0,
   creditsRemaining: 0,
@@ -90,6 +98,46 @@ export const useAIStore = create<AIState>((set, get) => ({
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Erro ao carregar insights';
       set({ error: message, isLoadingInsights: false });
+      throw error;
+    }
+  },
+
+  getSuggestedHabits: async () => {
+    console.log('📊 [aiStore] getSuggestedHabits iniciado');
+    set({ isLoadingSuggestions: true, error: null });
+    try {
+      console.log('📡 [aiStore] Chamando aiService.getSuggestedHabits...');
+      const response = await aiService.getSuggestedHabits();
+      console.log('📥 [aiStore] Sugestões recebidas:', response);
+      
+      set({
+        suggestedHabits: response.suggestedHabits,
+        isLoadingSuggestions: false,
+      });
+      console.log('✅ [aiStore] Estado de sugestões atualizado com sucesso');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Erro ao carregar sugestões';
+      set({ error: message, isLoadingSuggestions: false });
+      throw error;
+    }
+  },
+
+  getSingleHabitSuggestion: async () => {
+    console.log('📊 [aiStore] getSingleHabitSuggestion iniciado');
+    set({ isLoadingSuggestions: true, error: null });
+    try {
+      console.log('📡 [aiStore] Chamando aiService.getSingleHabitSuggestion...');
+      const response = await aiService.getSingleHabitSuggestion();
+      console.log('📥 [aiStore] Sugestão recebida:', response);
+      
+      set({
+        suggestedHabits: response.suggestedHabits,
+        isLoadingSuggestions: false,
+      });
+      console.log('✅ [aiStore] Sugestão única atualizada com sucesso');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Erro ao gerar sugestão';
+      set({ error: message, isLoadingSuggestions: false });
       throw error;
     }
   },
@@ -182,9 +230,11 @@ export const useAIStore = create<AIState>((set, get) => ({
       analysisHistory: [],
       favoriteAnalyses: [],
       currentInsights: null,
+      suggestedHabits: [],
       isLoading: false,
       isAnalyzing: false,
       isLoadingInsights: false,
+      isLoadingSuggestions: false,
       error: null,
       creditsUsed: 0,
       creditsRemaining: 0,

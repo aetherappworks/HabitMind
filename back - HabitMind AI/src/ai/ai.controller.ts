@@ -5,7 +5,7 @@ import { RateLimitGuard } from '../common/guards/rate-limit.guard';
 import { CreditCostDecorator } from '../common/decorators/credit-cost.decorator';
 import { CreditCost } from '../common/services/rate-limit.service';
 import { AiService } from './ai.service';
-import { AnalyzeHabitDto, AIInsightResponseDto } from './dto/ai.dto';
+import { AnalyzeHabitDto, AIInsightResponseDto, HabitSuggestionsResponseDto } from './dto/ai.dto';
 
 @ApiTags('AI')
 @ApiBearerAuth()
@@ -60,17 +60,13 @@ export class AiController {
   @Get('insights')
   @CreditCostDecorator(CreditCost.GET_INSIGHTS)
   @ApiOperation({
-    summary: 'Get AI insights for user',
-    description: 'Obter insights rápidos. Custa 1 crédito no plano free.',
+    summary: 'Get habit suggestions based on user current habits',
+    description: 'Obter sugestões de novos hábitos. Não custa créditos.',
   })
   @ApiResponse({
     status: 200,
-    description: 'List of AI insights',
-    type: [AIInsightResponseDto],
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Insufficient credits (free plan: 20 credits/day)',
+    description: 'Habit suggestions generated successfully',
+    type: HabitSuggestionsResponseDto,
   })
   @ApiHeader({
     name: 'X-RateLimit-Remaining',
@@ -82,11 +78,44 @@ export class AiController {
   })
   async getInsights(
     @Request() req,
-    @Query('habitId') habitId?: string,
     @Query('lang') lang: string = 'pt-br',
   ) {
     try {
-      return await this.aiService.getInsights(req.user.id, habitId, lang);
+      return await this.aiService.getInsights(req.user.id, undefined, lang);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  @Get('suggest')
+  @CreditCostDecorator(CreditCost.GET_HABIT_SUGGESTION)
+  @ApiOperation({
+    summary: 'Get one habit suggestion',
+    description: 'Gerar uma sugestão de novo hábito. Custa 2 créditos no plano free.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'One habit suggestion generated successfully',
+    type: HabitSuggestionsResponseDto,
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Insufficient credits',
+  })
+  @ApiHeader({
+    name: 'X-RateLimit-Remaining',
+    description: 'Credits remaining',
+  })
+  @ApiHeader({
+    name: 'X-Credit-Cost',
+    description: 'Credits debited for this request',
+  })
+  async getSingleSuggestion(
+    @Request() req,
+    @Query('lang') lang: string = 'pt-br',
+  ) {
+    try {
+      return await this.aiService.getSingleSuggestion(req.user.id, lang);
     } catch (error) {
       throw new BadRequestException(error.message);
     }

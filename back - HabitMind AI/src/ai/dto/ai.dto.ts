@@ -37,9 +37,58 @@ export class AIInsightResponseDto {
   @ApiProperty()
   content: string;
 
+  @ApiProperty({ description: 'Impact on users life', required: false })
+  impact?: string;
+
+  @ApiProperty({ isArray: true, required: false })
+  recommendations?: string[];
+
+  @ApiProperty({ isArray: true, required: false })
+  insights?: string[];
+
   @ApiProperty()
   confidenceScore: number;
 
   @ApiProperty()
   createdAt: Date;
+}
+
+export class HabitSuggestionDto {
+  @ApiProperty()
+  title: string;
+
+  @ApiProperty()
+  reason: string;
+
+  @ApiProperty()
+  category: string;
+
+  @ApiProperty()
+  priority: number;
+
+  @ApiProperty()
+  relatedHabit: string;
+
+  @ApiProperty()
+  completionRate: number;
+
+  @ApiProperty()
+  confidence: number;
+
+  @ApiProperty({ isArray: true })
+  benefits: string[];
+
+  @ApiProperty()
+  difficulty: 'easy' | 'medium' | 'hard';
+}
+
+export class HabitSuggestionsResponseDto {
+  @ApiProperty({ isArray: true, type: HabitSuggestionDto })
+  suggestedHabits: HabitSuggestionDto[];
+
+  @ApiProperty()
+  totalCurrentHabits: number;
+
+  @ApiProperty()
+  message: string;
 }

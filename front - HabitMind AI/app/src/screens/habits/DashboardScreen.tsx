@@ -16,6 +16,7 @@ import { HabitCard } from '../../components/HabitCard';
 import { HabitModal } from '../../components/HabitModal';
 import { CheckInModal } from '../../components/CheckInModal';
 import { AIAnalysisModal } from '../../components/AIAnalysisModal';
+import { HabitSuggestionsModal } from '../../components/HabitSuggestionsModal';
 import { Button } from '../../components/Button';
 import { authService, UserCredits } from '../../services/authService';
 import { habitService, CheckIn } from '../../services/habitService';
@@ -43,6 +44,7 @@ export default function DashboardScreen({ navigation }: any) {
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [showCheckInModal, setShowCheckInModal] = React.useState(false);
   const [showAnalysisModal, setShowAnalysisModal] = React.useState(false);
+  const [showSuggestionsModal, setShowSuggestionsModal] = React.useState(false);
   const [editingHabitId, setEditingHabitId] = React.useState<string | undefined>();
   const [checkInHabitId, setCheckInHabitId] = React.useState<string | undefined>();
   const [checkInHabitTitle, setCheckInHabitTitle] = React.useState<string>('');
@@ -247,6 +249,10 @@ export default function DashboardScreen({ navigation }: any) {
           setCheckInHabitTitle('');
         }}
       />
+      <HabitSuggestionsModal
+        visible={showSuggestionsModal}
+        onClose={() => setShowSuggestionsModal(false)}
+      />
 
       <View style={styles.header}>
         <View>
@@ -255,20 +261,35 @@ export default function DashboardScreen({ navigation }: any) {
             {habits.length} hábito{habits.length !== 1 ? 's' : ''}
           </Text>
         </View>
-        <TouchableOpacity
-          style={styles.fabButton}
-          onPress={() => setShowCreateModal(true)}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.fabButtonText}>+ Novo</Text>
-        </TouchableOpacity>
+        <View style={styles.headerActions}>
+          <TouchableOpacity
+            style={styles.suggestionsButton}
+            onPress={() => setShowSuggestionsModal(true)}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.suggestionsButtonText}>💡</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.fabButton}
+            onPress={() => setShowCreateModal(true)}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.fabButtonText}>+ Novo</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Credits Card */}
       {credits && (
         <TouchableOpacity
           style={styles.creditsCard}
-          onPress={() => navigation.navigate('Credits')}
+          onPress={() => {
+            // Navigate to UserTab, then to Credits screen
+            navigation.navigate('UserTab' as any);
+            setTimeout(() => {
+              navigation.navigate('Credits');
+            }, 100);
+          }}
         >
           <View style={styles.creditsContent}>
             <Text style={styles.creditsLabel}>Créditos Disponíveis</Text>
@@ -369,6 +390,22 @@ const styles = StyleSheet.create({
   subGreeting: {
     fontSize: 12,
     color: '#9ca3af',
+  },
+  headerActions: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  suggestionsButton: {
+    backgroundColor: '#fef3c7',
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...shadows.small,
+  },
+  suggestionsButtonText: {
+    fontSize: 16,
   },
   fabButton: {
     backgroundColor: '#6366f1',

@@ -106,7 +106,7 @@ export const HabitModal: React.FC<HabitModalProps> = ({
         resetForm();
         onClose();
         onSuccess?.();
-      }, 1500);
+      }, 500);
     } catch (error) {
       setToastMessage(
         error instanceof Error ? error.message : 'Erro ao salvar hábito'
@@ -145,7 +145,7 @@ export const HabitModal: React.FC<HabitModalProps> = ({
                   resetForm();
                   onClose();
                   onSuccess?.();
-                }, 1500);
+                }, 500);
               }
             } catch (error) {
               setToastMessage(
@@ -172,7 +172,7 @@ export const HabitModal: React.FC<HabitModalProps> = ({
         message={toastMessage}
         type={toastType}
         visible={showToast}
-        duration={1500}
+        duration={500}
       />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

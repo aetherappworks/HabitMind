@@ -49,7 +49,10 @@
     },
     "messages": {
       "analysis_completed": "Analysis completed successfully",
-      "insights_generated": "Insights generated successfully"
+      "insights_generated": "Insights generated successfully",
+      "habit_suggestions_generated": "New habit suggestions generated successfully",
+      "habit_suggestion_generated": "New habit suggestion generated successfully",
+      "no_habits_yet": "Start tracking habits to receive personalized suggestions"
     }
   },
   "ads": {

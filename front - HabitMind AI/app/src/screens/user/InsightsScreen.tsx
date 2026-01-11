@@ -67,7 +67,7 @@ export const InsightsScreen: React.FC<InsightsModalProps> = ({ visible, onClose 
         message={toastMessage}
         type={toastType}
         visible={showToast}
-        duration={1500}
+        duration={500}
       />
 
       <ScrollView contentContainerStyle={styles.content}>

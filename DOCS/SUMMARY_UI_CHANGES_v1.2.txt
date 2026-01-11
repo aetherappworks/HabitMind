@@ -1,0 +1,203 @@
+╔═══════════════════════════════════════════════════════════════════════════════════╗
+║         HabitMind AI - ANÁLISE UI/UX IMPROVEMENTS v1.2                            ║
+║         Simplificação de Modal + Atualização Automática de Créditos                ║
+╚═══════════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. MODAL DE ANÁLISE - ANTES vs DEPOIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ANTES (v1.1)                          │ DEPOIS (v1.2)
+─────────────────────────────────────┼──────────────────────────────────────
+┌──────────────────────────────────┐ │ ┌──────────────────────────────────┐
+│ Morning Exercise       [Conf:76%] │ │ │ Morning Exercise                 │
+│ ═════════════════════════════════ │ │ │ ═════════════════════════════════
+│                                  │ │ │
+│ ��� ANÁLISE DE PADRÕES            │ │ │ ��� ANÁLISE DE PADRÕES            │
+│ [Taxa: 100%...]                  │ │ │ [Taxa: 100%...]                  │
+│                                  │ │ │
+│ ��� IMPACTO NA VIDA               │ │ │ ��� IMPACTO NA VIDA               │
+│ [Descrição de impacto...]        │ │ │ [Descrição de impacto...]        │
+│                                  │ │ │
+│ ��� RECOMENDAÇÕES                 │ │ │ ��� RECOMENDAÇÕES                 │
+│ • Aumentar intensidade...        │ │ │ • Aumentar intensidade...        │
+│ • Celebrar 30 dias...            │ │ │ • Celebrar 30 dias...            │
+│                                  │ │ │
+│ ��� DESCOBERTAS                   │ │ │ ��� DESCOBERTAS                   │
+│ → Seu melhor período foi 30 dias │ │ │ → Seu melhor período foi 30 dias │
+│ → Acima da média...              │ │ │ → Acima da média...              │
+│                                  │ │ │
+│ ─────────────────────────────────│ │ │ ��� [Fechar]                      │
+│ Confiança da Análise ← REMOVIDO   │ │ │
+│ ████████░░░░░ 76%                │ │ │
+│                                  │ │ │
+│ ��� Créditos Restantes: 47 ← REM  │ │ │
+│                                  │ │ │
+│ [Fechar]                         │ │ │
+└──────────────────────────────────┘ │ └──────────────────────────────────┘
+
+MUDANÇAS:
+  ✅ Remover badge "Confiança" no topo (scoreContainer)
+  ✅ Remover barra de confiança com % (confidenceSection)
+  ✅ Remover "Créditos Restantes" (creditsInfo)
+  ✅ Deixar modal mais limpa e focada no essencial
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. FLUXO DE ATUALIZAÇÃO DE CRÉDITOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   HOME (DashboardScreen)           │  MODAL (AIAnalysisModal)
+   ─────────────────────────────────┼──────────────────────────────
+   ┌──────────────────────────────┐ │  ┌──────────────────────────┐
+   │ Créditos Disponíveis: 47     │ │  │ ✅ Análise concluída     │
+   │ (atualiza automaticamente) ◀─┼──┼─ │ (1 segundo depois...)    │
+   └──────────────────────────────┘ │  │                          │
+                                    │  │ Chamada: refreshCredits()│
+                                    │  │ Store: useCreditStore    │
+                                    │  │ Servidor: GET /credits   │
+                                    │  │                          │
+                                    │  │ ✅ Dados recebidos       │
+                                    │  └──────────────────────────┘
+   ┌──────────────────────────────┐ │
+   │ Créditos Disponíveis: 44 ◀───┼──┼ Número reduzido (47-3=44)
+   │ ✅ ATUALIZADO!               │ │
+   └──────────────────────────────┘ │
+
+TIMELINE:
+  T=0s   → Usuário clica "Analisar"
+  T=1s   → Modal exibe análise (server response)
+  T=1s   → setTimeout executado → refreshCredits()
+  T=1.5s → API call completa
+  T=2s   → Home atualiza com novo saldo ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. CÓDIGO-CHAVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARQUIVO: AIAnalysisModal.tsx
+
+1. IMPORT
+   ─────
+   import { useCreditStore } from '../store/creditStore';
+
+2. DESTRUIR STORE
+   ──────────────
+   const { getCredits: refreshCredits } = useCreditStore();
+
+3. ATUALIZAR APÓS ANÁLISE
+   ─────────────────────
+   const performAnalysis = async () => {
+     await analyzeHabit(payload);
+     
+     // ✨ NOVO: Atualizar créditos após 1s
+     setTimeout(async () => {
+       try {
+         await refreshCredits();
+         console.log('��� Créditos atualizados');
+       } catch (err) {
+         console.warn('⚠️ Erro ao atualizar:', err);
+       }
+     }, 1000);
+   }
+
+4. REMOVER JSX
+   ───────────
+   ❌ <scoreContainer> - Confiança: 76%
+   ❌ <confidenceSection> - Barra de confiança
+   ❌ <creditsInfo> - Créditos Restantes: 47
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. ESTILOS REMOVIDOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ scoreContainer - backgroundColor: '#dbeafe'
+❌ scoreLabel - fontSize: 11
+❌ scoreValue - fontSize: 18
+❌ confidenceSection - marginTop: 20
+❌ confidenceLabel - fontSize: 12
+❌ confidenceBar - height: 8
+❌ confidenceFill - backgroundColor: '#10b981'
+❌ confidencePercent - fontSize: 12
+❌ creditsInfo - backgroundColor: '#f3f4f6'
+❌ creditsLabel - fontSize: 13
+❌ creditsValue - fontSize: 16
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. TESTES MANUAIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TESTE 1: Modal Simplificada
+  ✓ Abrir hábito
+  ✓ Clicar "Analisar"
+  ✓ Verificar que NÃO aparece "Confiança: 76%"
+  ✓ Verificar que NÃO aparece "Créditos Restantes: 47"
+  ✓ Verificar que aparecem as 4 seções: Análise + Impacto + Recomendações + Descobertas
+
+TESTE 2: Atualização de Créditos Automática
+  ✓ Anotar créditos na home: 47
+  ✓ Abrir hábito
+  ✓ Clicar "Analisar"
+  ✓ Aguardar ~2 segundos
+  ✓ Voltar para home
+  ✓ Verificar que créditos mudaram: 47 → 44
+  ✓ Verificar que é automático (sem refresh manual)
+
+TESTE 3: Sem Créditos
+  ✓ Zerar créditos no banco
+  ✓ Tentar analisar
+  ✓ Deve aparecer erro "Créditos insuficientes"
+  ✓ Modal não deve abrir
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. IMPACTO ESPERADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+UI/UX
+  ✨ Modal mais limpa (menos informações técnicas)
+  ✨ Foco no que importa para usuário (análise + recomendações)
+  ✨ Remover "Confiança" reduz visual clutter (-3 seções)
+
+UX FLUXO
+  ✨ Créditos atualizam automaticamente (+2 pontos UX)
+  ✨ Sem precisar reabrir app
+  ✨ Sem precisar de refresh manual
+  ✨ Tempo real (~2s de latência, aceitável)
+
+NEGÓCIO
+  ✨ Usuário vê créditos diminuindo → consciente do custo
+  ✨ Menos texto na modal → mais foco na análise
+  ✨ Aumenta sensação de "real-time" analytics
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. PRÓXIMOS PASSOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMEDIATO (Hoje)
+  [ ] QA testa 10+ análises
+  [ ] Verificar atualização de créditos
+  [ ] Testar em staging
+
+CURTO PRAZO (1 semana)
+  [ ] Adicionar animação ao número de créditos (fade in/out)
+  [ ] Toast notification quando atualizar
+  [ ] Histórico de consumo
+
+MÉDIO PRAZO (2-4 semanas)
+  [ ] Dashboard de gasto
+  [ ] Gráfico de consumo mensal
+  [ ] Alertas de créditos baixos
+
+LONGO PRAZO (1+ mês)
+  [ ] Integrar com OpenAI (análises ilimitadas premium)
+  [ ] Recomendações de compra de créditos
+  [ ] Analytics de valor (ROI)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ PRONTO PARA DEPLOY
+
+Versão: 1.2.0
+Data: 11 de Janeiro de 2026
+Arquivo Modificado: AIAnalysisModal.tsx
+Linhas Alteradas: ~40 linhas removidas, ~10 linhas adicionadas
+
